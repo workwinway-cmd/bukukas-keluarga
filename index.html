@@ -591,15 +591,18 @@ function cfHeaders(extra){
 async function cloudPush(isRetry){
   if(!state.sync.cfUrl) throw new Error('URL Cloudflare Worker belum diisi');
   // PENTING: kalau HP ini belum pernah sinkron sama sekali, cloudVersion masih
-  // null. Jangan kirim field "version" sama sekali dalam kondisi itu (bukan
-  // kirim null) — server membaca body.version === undefined sebagai "belum tau
-  // versi apa pun, jangan cek konflik". Kalau kita kirim null secara eksplisit,
-  // server akan salah kira ini konflik (null dianggap "punya versi tapi beda
-  // dari 0") padahal ini cuma percobaan pertama & cloud masih kosong — bug ini
-  // yang bikin push kelihatan "berhasil" tapi sebenarnya tidak pernah menulis
-  // apa pun ke KV.
-  const versionField = (state.sync.cloudVersion !== null && state.sync.cloudVersion !== undefined)
-    ? { version: state.sync.cloudVersion } : {};
+  // null. Kita anggap itu SAMA DENGAN "versi 0" (bukan skip field version).
+  // Kenapa: kalau field version tidak dikirim sama sekali, server menganggap
+  // klien "tidak peduli versi apa pun di cloud" dan langsung menimpa TANPA
+  // cek konflik — ini BUG BERBAHAYA: HP baru yang localnya masih kosong bisa
+  // menimpa data asli di cloud yang sudah ditulis HP lain sebelumnya.
+  // Dengan mengirim version:0 secara eksplisit, kalau cloud memang masih
+  // kosong (versi server juga 0) push tetap sukses seperti biasa. Tapi kalau
+  // cloud SUDAH punya data (versi server > 0), server akan balas 409 —
+  // dan alur retry di bawah ini otomatis menarik data asli itu dulu sebelum
+  // mencoba push ulang, sehingga data yang sudah ada tidak pernah tertimpa
+  // diam-diam oleh HP yang baru pertama kali sinkron.
+  const versionField = { version: (state.sync.cloudVersion !== null && state.sync.cloudVersion !== undefined) ? state.sync.cloudVersion : 0 };
   const res = await fetch(cfEndpoint(), {
     method: 'PUT',
     headers: cfHeaders({'Content-Type': 'application/json'}),
