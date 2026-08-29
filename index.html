@@ -33,6 +33,20 @@
     --card:#FFFFFF;
     --surface-soft:#F3F4F6;
     --shadow: 0 1px 3px rgba(20,23,31,0.05);
+    --radius:12px;
+    --radius-sm:8px;
+    --radius-lg:16px;
+    --fs-xs:11px;
+    --fs-sm:12px;
+    --fs-base:14px;
+    --fs-md:16px;
+    --fs-lg:18px;
+    --fs-xl:20px;
+    --fs-2xl:24px;
+    --fw-400:400;
+    --fw-500:500;
+    --fw-600:600;
+    --fw-700:700;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -42,11 +56,165 @@
     font-family:'Inter', sans-serif;
     color:var(--ink);
     min-height:100vh;
-    padding-bottom:60px;
     overflow-x:hidden;
     width:100%;
   }
-  .wrap{max-width:640px;margin:0 auto;padding:20px 16px 40px;width:100%;}
+  .wrap{max-width:640px;margin:0 auto;padding:0 0 96px;width:100%;}
+  .screen{padding:18px 16px 24px;}
+
+  /* ---------- Header Beranda (logo + judul + bel notifikasi) ---------- */
+  header.home-top{
+    display:flex; align-items:center; gap:12px;
+    padding:18px 16px 14px; background:var(--paper);
+    border-bottom:1px solid var(--paper-line);
+  }
+  header.home-top .logo-box{
+    flex-shrink:0; width:44px; height:44px; border-radius:var(--radius-sm);
+    background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center;
+  }
+  header.home-top .titleblock{flex:1; min-width:0;}
+  header.home-top h1{font-size:var(--fs-lg); font-weight:var(--fw-700); margin:0 0 2px; letter-spacing:-0.01em;}
+  header.home-top p{margin:0; font-size:var(--fs-xs); color:var(--ink-soft); font-weight:var(--fw-500);}
+  header.home-top .bell{
+    flex-shrink:0; width:36px; height:36px; border-radius:50%; background:var(--surface-soft);
+    display:flex; align-items:center; justify-content:center; color:var(--ink); border:1px solid var(--paper-line);
+  }
+
+  /* ---------- Header halaman lain (back-chevron + judul + aksi opsional) ---------- */
+  header.page-top{
+    display:flex; align-items:center; gap:10px;
+    padding:16px 16px 14px; background:var(--paper);
+    border-bottom:1px solid var(--paper-line);
+  }
+  header.page-top .back-btn{
+    flex-shrink:0; width:34px; height:34px; border-radius:50%; border:1px solid var(--paper-line);
+    background:var(--card); display:flex; align-items:center; justify-content:center; color:var(--ink); cursor:pointer;
+  }
+  header.page-top h1{flex:1; min-width:0; font-size:var(--fs-lg); font-weight:var(--fw-700); margin:0; letter-spacing:-0.01em;}
+  header.page-top .action-btn{
+    flex-shrink:0; width:34px; height:34px; border-radius:50%; border:1px solid var(--paper-line);
+    background:var(--card); display:flex; align-items:center; justify-content:center; color:var(--ink); cursor:pointer;
+  }
+
+  /* ---------- Saldo Kas: kartu besar di Beranda ---------- */
+  .saldo-hero{
+    background:var(--accent); color:#fff; border-radius:var(--radius-lg);
+    padding:18px 18px 20px; margin-bottom:16px; box-shadow:var(--shadow);
+  }
+  .saldo-hero .lbl{font-size:var(--fs-xs); letter-spacing:0.08em; text-transform:uppercase; font-family:'IBM Plex Mono', monospace; color:rgba(255,255,255,0.65); display:flex; align-items:center; justify-content:space-between;}
+  .saldo-hero .eye-btn{background:transparent; border:none; color:rgba(255,255,255,0.85); cursor:pointer; padding:2px;}
+  .saldo-hero .amt{font-size:28px; font-weight:var(--fw-700); margin-top:6px; letter-spacing:-0.01em;}
+  .saldo-hero .sub{font-size:var(--fs-sm); color:rgba(255,255,255,0.7); margin-top:2px;}
+
+  .mini-stats{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:16px;}
+  .mini-stat{background:var(--card); border:1px solid var(--paper-line); border-radius:var(--radius); padding:12px 10px; text-align:center; box-shadow:var(--shadow);}
+  .mini-stat .ico{width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 6px;}
+  .mini-stat.masuk .ico{background:rgba(61,122,92,0.14); color:var(--sage);}
+  .mini-stat.keluar .ico{background:rgba(180,72,61,0.14); color:var(--red);}
+  .mini-stat.selisih .ico{background:rgba(166,130,75,0.16); color:var(--gold);}
+  .mini-stat .k{font-size:var(--fs-xs); color:var(--ink-soft); margin-bottom:3px;}
+  .mini-stat .v{font-family:'IBM Plex Mono', monospace; font-size:12.5px; font-weight:var(--fw-600); overflow-wrap:break-word;}
+
+  .section-head{display:flex; align-items:center; justify-content:space-between; margin:4px 0 10px;}
+  .section-head h3{font-size:var(--fs-md); font-weight:var(--fw-700); margin:0;}
+  .section-head a{font-size:var(--fs-sm); color:var(--accent); text-decoration:none; font-weight:var(--fw-600); cursor:pointer;}
+
+  /* ---------- List item transaksi (Beranda & Riwayat) ---------- */
+  .tx-list{background:var(--card); border:1px solid var(--paper-line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; margin-bottom:16px;}
+  .tx-row{display:flex; align-items:center; gap:12px; padding:12px 14px; border-bottom:1px solid var(--paper-line); cursor:default;}
+  .tx-row:last-child{border-bottom:none;}
+  .tx-row .tx-ico{flex-shrink:0; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px;}
+  .tx-row.masuk .tx-ico{background:rgba(61,122,92,0.14); color:var(--sage);}
+  .tx-row.keluar .tx-ico{background:rgba(180,72,61,0.14); color:var(--red);}
+  .tx-row .tx-mid{flex:1; min-width:0;}
+  .tx-row .tx-name{font-size:var(--fs-base); font-weight:var(--fw-600); color:var(--ink);}
+  .tx-row .tx-meta{font-size:var(--fs-xs); color:var(--ink-soft); margin-top:2px;}
+  .tx-row .tx-amt{flex-shrink:0; font-family:'IBM Plex Mono', monospace; font-size:var(--fs-sm); font-weight:var(--fw-600); white-space:nowrap;}
+  .tx-row.masuk .tx-amt{color:var(--sage);}
+  .tx-row.keluar .tx-amt{color:var(--red);}
+
+  .tx-month-header{display:flex; align-items:baseline; justify-content:space-between; padding:10px 14px; background:var(--surface-soft); font-family:'IBM Plex Mono', monospace; font-size:var(--fs-xs); color:var(--ink-soft);}
+  .tx-month-header .totals span{margin-left:8px;}
+  .tx-date-badge{flex-shrink:0; width:38px; text-align:center;}
+  .tx-date-badge .d{font-size:var(--fs-md); font-weight:var(--fw-700); line-height:1.1;}
+  .tx-date-badge .m{font-size:9px; text-transform:uppercase; color:var(--ink-soft); letter-spacing:0.04em;}
+
+  /* ---------- Search bar & filter chips (Riwayat) ---------- */
+  .search-bar{display:flex; align-items:center; gap:8px; background:var(--surface-soft); border:1px solid var(--paper-line); border-radius:var(--radius-sm); padding:9px 12px; margin-bottom:14px; color:var(--ink-soft);}
+  .search-bar input{border:none; background:transparent; padding:0; flex:1; font-size:var(--fs-base); color:var(--ink);}
+  .search-bar input:focus{outline:none;}
+  .chip-row{display:flex; gap:8px; align-items:center; margin-bottom:16px; overflow-x:auto;}
+  .chip{flex:0 0 auto; font-size:var(--fs-sm); font-weight:var(--fw-600); padding:7px 14px; border-radius:20px; background:var(--card); border:1px solid var(--paper-line); color:var(--ink-soft); cursor:pointer; white-space:nowrap;}
+  .chip.active{background:var(--ink); color:#fff; border-color:var(--ink);}
+  .chip-icon{flex-shrink:0; width:34px; height:34px; border-radius:var(--radius-sm); border:1px solid var(--paper-line); background:var(--card); display:flex; align-items:center; justify-content:center; color:var(--ink-soft); cursor:pointer; margin-left:auto;}
+
+  /* ---------- Toggle Pemasukan/Pengeluaran (Catat Transaksi) ---------- */
+  .seg-toggle{display:flex; background:var(--surface-soft); border-radius:var(--radius-sm); padding:4px; margin-bottom:16px;}
+  .seg-toggle button{flex:1; border:none; background:transparent; padding:9px; border-radius:6px; font-size:var(--fs-base); font-weight:var(--fw-600); color:var(--ink-soft); cursor:pointer;}
+  .seg-toggle button.active{background:var(--card); color:var(--ink); box-shadow:var(--shadow);}
+  .seg-toggle button.active.masuk{color:var(--sage);}
+  .seg-toggle button.active.keluar{color:var(--red);}
+
+  .field-icon-input{position:relative;}
+  .field-icon-input input, .field-icon-input select{padding-left:34px;}
+  .field-icon-input .fi{position:absolute; left:10px; top:34px; color:var(--ink-soft); pointer-events:none;}
+
+  /* ---------- Donut anggaran ---------- */
+  .donut-wrap{display:flex; align-items:center; gap:18px; margin-bottom:6px; flex-wrap:wrap;}
+  .donut{width:110px; height:110px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; position:relative;}
+  .donut .donut-hole{width:72px; height:72px; border-radius:50%; background:var(--card); display:flex; flex-direction:column; align-items:center; justify-content:center;}
+  .donut .donut-hole .pct{font-size:var(--fs-xl); font-weight:var(--fw-700);}
+  .donut .donut-hole .pct-lbl{font-size:9px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.05em;}
+  .donut-legend{flex:1; min-width:150px;}
+  .donut-legend .dl-row{display:flex; justify-content:space-between; font-size:var(--fs-sm); padding:4px 0;}
+  .donut-legend .dl-row .lbl{color:var(--ink-soft);}
+  .donut-legend .dl-row .val{font-family:'IBM Plex Mono', monospace; font-weight:var(--fw-600);}
+
+  .budget-item{padding:11px 0; border-bottom:1px solid var(--paper-line);}
+  .budget-item:last-child{border-bottom:none;}
+  .budget-item .bi-top{display:flex; justify-content:space-between; font-size:var(--fs-base); margin-bottom:6px;}
+  .budget-item .bi-top .nm{font-weight:var(--fw-600);}
+  .budget-item .bi-top .pct{font-size:var(--fs-xs); color:var(--ink-soft); font-family:'IBM Plex Mono', monospace;}
+  .budget-item .bi-amt{font-size:var(--fs-xs); color:var(--ink-soft); margin-top:4px; font-family:'IBM Plex Mono', monospace;}
+  .progress-track{height:7px; background:var(--surface-soft); border-radius:4px; overflow:hidden;}
+  .progress-track > div{height:100%; border-radius:4px;}
+
+  /* ---------- Daftar menu / pengaturan (Akun) ---------- */
+  .settings-section-title{font-size:var(--fs-xs); text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-soft); font-weight:var(--fw-600); margin:20px 0 8px 2px;}
+  .settings-section-title:first-of-type{margin-top:0;}
+  .settings-list{background:var(--card); border:1px solid var(--paper-line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden;}
+  .settings-row{display:flex; align-items:center; gap:12px; padding:13px 14px; border-bottom:1px solid var(--paper-line); cursor:pointer; background:none; width:100%; text-align:left; font-family:'Inter', sans-serif; color:var(--ink);}
+  .settings-row:last-child{border-bottom:none;}
+  .settings-row .si{flex-shrink:0; width:30px; height:30px; border-radius:var(--radius-sm); background:var(--surface-soft); display:flex; align-items:center; justify-content:center; color:var(--accent);}
+  .settings-row .st{flex:1; min-width:0;}
+  .settings-row .st .nm{font-size:var(--fs-base); font-weight:var(--fw-500);}
+  .settings-row .st .vv{font-size:var(--fs-xs); color:var(--ink-soft); margin-top:1px;}
+  .settings-row .chev{flex-shrink:0; color:var(--ink-soft);}
+
+  /* ---------- Bottom navigation ---------- */
+  nav.bottom-nav{
+    position:fixed; left:0; right:0; bottom:0; z-index:200;
+    background:var(--card); border-top:1px solid var(--paper-line);
+    display:flex; align-items:center; justify-content:space-around;
+    padding:8px 6px calc(8px + env(safe-area-inset-bottom));
+    max-width:640px; margin:0 auto;
+  }
+  nav.bottom-nav .nb-item{
+    background:none; border:none; display:flex; flex-direction:column; align-items:center; gap:3px;
+    color:var(--ink-soft); font-family:'Inter', sans-serif; font-size:10px; font-weight:var(--fw-600);
+    cursor:pointer; padding:4px 8px; flex:1;
+  }
+  nav.bottom-nav .nb-item.active{color:var(--accent);}
+  nav.bottom-nav .nb-add{
+    flex-shrink:0; width:50px; height:50px; border-radius:50%; background:var(--accent); color:#fff;
+    display:flex; align-items:center; justify-content:center; border:none; cursor:pointer;
+    margin-top:-26px; box-shadow:0 3px 10px rgba(44,95,111,0.35);
+  }
+
+  /* ---------- Tabs pill (Laporan: Ringkasan/Arus Kas/Kategori) ---------- */
+  .pill-tabs{display:flex; background:var(--surface-soft); border-radius:var(--radius-sm); padding:4px; margin-bottom:16px;}
+  .pill-tabs button{flex:1; border:none; background:transparent; padding:8px; border-radius:6px; font-size:var(--fs-sm); font-weight:var(--fw-600); color:var(--ink-soft); cursor:pointer;}
+  .pill-tabs button.active{background:var(--card); color:var(--ink); box-shadow:var(--shadow);}
 
   header.top{
     display:flex;
@@ -71,7 +239,6 @@
     font-weight:500;
     font-family:'Inter', sans-serif;
   }
-  /* Saldo Kas: kotak (bukan lingkaran) supaya nominal besar (ratusan juta) tetap muat & terbaca. */
   .stamp{
     flex-shrink:0;
     min-width:112px;
@@ -100,42 +267,7 @@
     color:rgba(255,255,255,0.5); white-space:nowrap;
   }
 
-  /* Nav menu: kartu dengan aksen kiri — lebih terlihat sebagai tombol, tetap senada dengan tema kartu di seluruh app. */
-  nav.tabs{
-    display:flex;
-    gap:8px;
-    margin-bottom:20px;
-    overflow-x:auto;
-    padding-bottom:2px;
-  }
-  nav.tabs button{
-    flex:0 0 auto;
-    font-family:'Inter', sans-serif;
-    font-size:12px;
-    font-weight:500;
-    background:var(--card);
-    border:1px solid var(--paper-line);
-    border-left:3px solid transparent;
-    border-radius:10px;
-    padding:9px 13px;
-    color:var(--ink-soft);
-    cursor:pointer;
-    display:flex;
-    align-items:baseline;
-    gap:6px;
-    white-space:nowrap;
-  }
-  nav.tabs button .num{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:10.5px;
-    color:var(--gold);
-  }
-  nav.tabs button.active{
-    color:var(--ink);
-    border-left-color:var(--accent);
-    font-weight:700;
-    box-shadow:var(--shadow);
-  }
+  nav.tabs{display:none;}
 
   .card{
     background:var(--card);
@@ -186,7 +318,6 @@
   .opening-row:last-of-type{border-bottom:none;}
   .opening-row-label{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--gold); font-weight:600; margin-top:4px;}
 
-  /* Label field + tombol info (i) supaya istilah seperti Debit/Kredit tidak membingungkan */
   .label-row{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:12px; margin-bottom:4px;}
   .label-row label{margin:0;}
   .info-pop{position:relative; flex-shrink:0;}
@@ -205,7 +336,6 @@
     padding:10px 12px; border-radius:10px; box-shadow:var(--shadow);
   }
 
-  /* Kartu Transaksi Berulang dibedakan warnanya (aksen emas/gold) dari Catat Transaksi Baru */
   .card-recurring{border-color:var(--gold); background:rgba(173,138,78,0.045);}
   .card-recurring h2{color:var(--gold);}
   .badge-template{
@@ -464,7 +594,7 @@ function daysSinceBackup(){
 // pihak lain selain endpoint Cloudflare Worker yang pengguna sendiri masukkan.
 const SYNC_DEFAULTS = {
   cfUrl: 'https://kasrumah.workwinway.workers.dev', cfToken: '', cfNamespace: 'default',
-  lastPush: null, lastPull: null, lastAutoBackup: null, lastSyncError: null,
+  lastPush: null, lastPull: null, lastSyncError: null,
   cloudVersion: null,   // nomor versi cloud terakhir yang kita tahu (utk deteksi konflik)
   dirty: false,         // true = ada perubahan lokal yang belum berhasil dikirim ke cloud
   autoSyncOn: true,     // sinkron otomatis (push & pull berkala) aktif/nonaktif
@@ -525,30 +655,6 @@ let _cloudPolling = false;
 const CLOUD_POLL_MS = 20000; // cek pembaruan dari perangkat lain tiap 20 detik saat app terbuka
 
 function cloudReady(){ return !!(state.sync && state.sync.cfUrl); }
-
-// Jaring pengaman: sebelum data lokal HP ini DITIMPA oleh data dari cloud
-// (baik lewat auto-sync diam-diam maupun tombol manual), simpan dulu salinan
-// data lokal saat ini ke localStorage. Kalau ternyata yang tertimpa itu justru
-// data yang lebih baru/benar, salinan ini masih bisa dipulihkan lewat
-// restoreLastAutoBackup() — jadi sinkron bisa jalan full-otomatis tanpa perlu
-// nanya izin user setiap kali, tapi tidak ada data yang benar-benar hilang.
-async function backupLocalBeforeOverwrite(){
-  try{
-    const now = new Date().toISOString();
-    const snap = { data: buildSnapshot(), savedAt: now };
-    await persistLocal('auto-backup-before-pull', JSON.stringify(snap), 'cadangan otomatis sebelum sinkron');
-    state.sync.lastAutoBackup = now;
-    await saveSyncSettings();
-  }catch(e){ console.warn('Gagal membuat cadangan otomatis sebelum sinkron', e); }
-}
-async function restoreLastAutoBackup(){
-  const res = await storage.get('auto-backup-before-pull');
-  if(!res) throw new Error('Belum ada cadangan otomatis tersimpan di HP ini.');
-  const snap = JSON.parse(res.value);
-  applySnapshot(snap.data);
-  await Promise.all([saveCOA(), saveJournal(), saveOpening(), saveBudgets(), saveRecurring(), saveGoals()]);
-  return snap.savedAt;
-}
 
 // Dipanggil setiap kali ada perubahan tersimpan (saveJournal, saveCOA, dst).
 // Ditandai dirty SEGERA (biar status "belum tersinkron" akurat walau tab
@@ -616,8 +722,7 @@ async function cloudPush(isRetry){
       throw new Error('Data di cloud terus berubah dari perangkat lain — coba sinkron lagi sebentar.');
     }
     // Full otomatis: jangan lempar error ke user. Samakan dulu versi lokal
-    // dengan versi cloud yang sebenarnya (lewat pull, dengan cadangan otomatis
-    // dibuat dulu di dalamnya kalau memang ada data yg ditimpa), lalu KIRIM
+    // dengan versi cloud yang sebenarnya (lewat pull), lalu KIRIM
     // ULANG push ini sekali — supaya perubahan yg tadi mau disimpan benar-benar
     // sampai ke server, bukan cuma "dianggap berhasil" tanpa isi.
     console.warn('Konflik sinkron — menyamakan versi & mencoba kirim ulang...');
@@ -672,7 +777,6 @@ async function cloudPull(opts){
     return false;
   }
 
-  await backupLocalBeforeOverwrite();
   applySnapshot(payload.data !== undefined ? payload.data : payload); // fallback data lama tanpa "version"
   await Promise.all([saveCOA(), saveJournal(), saveOpening(), saveBudgets(), saveRecurring(), saveGoals()]);
   state.sync.lastPull = new Date().toISOString();
@@ -726,7 +830,7 @@ let state = {
   recurring: [], // [{id, label, debit, kredit, jumlah, keterangan}]
   savingsGoals: [], // [{id, nama, target, akunKode}]
   journalFilter: { q:'', akun:'', dari:'', sampai:'' }, // filter tampilan riwayat jurnal (tidak disimpan)
-  tab: 'dashboard',
+  tab: 'beranda',
   ready: false,
   viewMonth: new Date().getMonth(),
   viewYear: new Date().getFullYear(),
@@ -1089,75 +1193,6 @@ function journalStatus(){
   return {totalDebit, totalKredit, invalid, balanced: invalid === 0};
 }
 
-function render(){
-  const app = document.getElementById('app');
-  if(!state.ready){ app.innerHTML = '<div class="loading">Membuka buku kas…</div>'; return; }
-
-  const bal = kasBalance();
-  const stampClass = bal >= 0 ? 'positive' : '';
-
-  app.innerHTML = `
-    <header class="top">
-      <div class="titleblock">
-        <h1>Buku Kas Keluarga</h1>
-        <p>${state.sync && state.sync.cfUrl ? 'Tersinkron ke cloud milik sendiri' : 'Edisi Lokal HP — aktifkan tab Cloud untuk sinkron'}</p>
-      </div>
-      <div class="stamp ${stampClass}">
-        <div class="lbl">Saldo Kas</div>
-        <div class="amt">${formatSaldoK(bal)}</div>
-        <div class="amt-full">${rupiah(bal)}</div>
-      </div>
-    </header>
-
-    <nav class="tabs">
-      <button data-tab="dashboard" class="${state.tab==='dashboard'?'active':''}"><span class="num">00</span>Dasbor</button>
-      <button data-tab="coa" class="${state.tab==='coa'?'active':''}"><span class="num">01</span>Bagan Akun</button>
-      <button data-tab="journal" class="${state.tab==='journal'?'active':''}"><span class="num">02</span>Jurnal</button>
-      <button data-tab="report" class="${state.tab==='report'?'active':''}"><span class="num">03</span>Laporan Kas</button>
-      <button data-tab="anggaran" class="${state.tab==='anggaran'?'active':''}"><span class="num">04</span>Anggaran</button>
-      <button data-tab="aset" class="${state.tab==='aset'?'active':''}"><span class="num">05</span>Aset</button>
-      <button data-tab="cloud" class="${state.tab==='cloud'?'active':''}"><span class="num">06</span>Cloud</button>
-    </nav>
-
-    <div id="tabcontent"></div>
-
-    ${renderFooter()}
-    ${renderChangelogModal()}
-    ${renderFotoModal()}
-  `;
-
-  document.querySelectorAll('nav.tabs button').forEach(btn=>{
-    btn.addEventListener('click', ()=>{ state.tab = btn.dataset.tab; render(); });
-  });
-
-  document.getElementById('open-changelog')?.addEventListener('click', ()=>{
-    document.getElementById('changelog-modal')?.classList.add('open');
-  });
-  document.getElementById('close-changelog')?.addEventListener('click', ()=>{
-    document.getElementById('changelog-modal')?.classList.remove('open');
-  });
-  document.getElementById('changelog-modal')?.addEventListener('click', (e)=>{
-    if(e.target.id === 'changelog-modal') e.target.classList.remove('open');
-  });
-  document.getElementById('close-foto')?.addEventListener('click', ()=>{
-    document.getElementById('foto-modal')?.classList.remove('open');
-  });
-  document.getElementById('foto-modal')?.addEventListener('click', (e)=>{
-    if(e.target.id === 'foto-modal') e.target.classList.remove('open');
-  });
-
-  const content = document.getElementById('tabcontent');
-  if(state.tab === 'dashboard') content.innerHTML = renderDashboardTab();
-  else if(state.tab === 'coa') content.innerHTML = renderCOATab();
-  else if(state.tab === 'journal') content.innerHTML = renderJournalTab();
-  else if(state.tab === 'anggaran') content.innerHTML = renderAnggaranTab();
-  else if(state.tab === 'aset') content.innerHTML = renderAsetTab();
-  else if(state.tab === 'cloud') content.innerHTML = renderCloudTab();
-  else content.innerHTML = renderReportTab();
-
-  attachTabEvents();
-}
-
 function renderFotoModal(){
   return `
     <div class="modal-overlay no-print" id="foto-modal">
@@ -1200,6 +1235,156 @@ function renderChangelogModal(){
 // Menghitung insight otomatis: bandingkan pengeluaran bln ini vs bln lalu,
 // rasio pengeluaran terhadap pemasukan, dan kategori beban terbesar.
 // Semua pembagian dijaga (defensive) agar tidak crash saat data masih kosong.
+// ---------- IKON (inline SVG kecil, tanpa dependensi luar) ----------
+const ICON = {
+  home: (s=20)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9"/></svg>`,
+  list: (s=20)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg>`,
+  plus: (s=24)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>`,
+  chart: (s=20)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>`,
+  user: (s=20)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>`,
+  bell: (s=18)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>`,
+  search: (s=18)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>`,
+  filter: (s=16)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16l-6.5 8v6l-3 1.5v-7.5z"/></svg>`,
+  chevLeft: (s=18)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>`,
+  chevRight: (s=16)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`,
+  eye: (s=18)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  eyeOff: (s=18)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.6 10.6a3 3 0 0 0 4.2 4.2"/><path d="M9.9 5.2A10.4 10.4 0 0 1 12 5c6.5 0 10 7 10 7a15.5 15.5 0 0 1-4 4.7M6.2 6.2C3.6 8 2 12 2 12s3.5 7 10 7c1.3 0 2.5-.2 3.6-.6"/></svg>`,
+  doc: (s=18)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>`,
+  lock: (s=16)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>`,
+  cloud: (s=16)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 0 0 0-9 6 6 0 0 0-11.4 2.1A4 4 0 0 0 6.5 20z"/></svg>`,
+  coin: (s=16)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5c0-1.4 1.3-2.5 3-2.5s3 1.1 3 2.4c0 3.1-6 1.6-6 4.7 0 1.3 1.3 2.4 3 2.4s3-1.1 3-2.5"/></svg>`,
+  cal: (s=16)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>`,
+  palette: (s=16)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10.5" r="1"/><circle cx="12" cy="8" r="1"/><circle cx="15.5" cy="10.5" r="1"/><path d="M8 15c1 1 2 1.5 4 1.5 3 0 5-1 5-3.5 0-.8-.4-1.5-1-1.5H12"/></svg>`,
+  wallet: (s=16)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1H6a2 2 0 0 1 0-4h13"/><circle cx="16.5" cy="14.5" r="1.2"/></svg>`,
+  repeat: (s=16)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>`,
+  target: (s=16)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>`,
+  info: (s=16)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>`,
+  arrowUp: (s=16)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>`,
+  arrowDown: (s=16)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M18 13l-6 6-6-6"/></svg>`,
+  scale: (s=16)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M5 7l3.5-1.5L12 7M12 7l3.5-1.5L19 7M5 7l-2.5 5.5A2.5 2.5 0 0 0 5 16a2.5 2.5 0 0 0 2.5-3.5L5 7ZM19 7l-2.5 5.5A2.5 2.5 0 0 0 19 16a2.5 2.5 0 0 0 2.5-3.5L19 7Z"/></svg>`,
+};
+
+// Nama root tab bottom-nav yang valid (dipakai untuk menentukan kapan header
+// pakai gaya "Beranda" vs gaya "halaman lain dengan back-chevron").
+const ROOT_TABS = ['beranda','transaksi','laporan','anggaran','akun'];
+// Tab mana yang jadi tujuan tombol kembali (back) untuk tiap sub-halaman.
+const BACK_TARGET = {
+  riwayat: 'beranda',
+  transaksi: 'beranda',
+  anggaran: 'akun',
+  'akun-bagan': 'akun',
+  'akun-berulang': 'akun',
+  'akun-aset': 'akun',
+  'akun-backup': 'akun',
+};
+
+let saldoTersembunyi = false; // toggle mata di kartu Saldo Kas, hanya di memori (tidak disimpan)
+let transaksiJenis = 'pemasukan'; // toggle Pemasukan/Pengeluaran di form Catat Transaksi
+let laporanSubTab = 'ringkasan'; // Ringkasan | Arus Kas | Kategori
+let riwayatJenisFilter = 'semua'; // semua | masuk | keluar
+let riwayatShowFilterPanel = false;
+
+function render(){
+  const app = document.getElementById('app');
+  if(!state.ready){ app.innerHTML = '<div class="loading">Membuka buku kas…</div>'; return; }
+
+  const isRoot = ROOT_TABS.includes(state.tab);
+  const headerHtml = state.tab === 'beranda' ? renderHomeHeader() : renderPageHeader();
+
+  app.innerHTML = `
+    ${headerHtml}
+    <div class="screen" id="tabcontent"></div>
+    ${renderBottomNav()}
+    ${renderFooter()}
+    ${renderChangelogModal()}
+    ${renderFotoModal()}
+  `;
+
+  const content = document.getElementById('tabcontent');
+  if(state.tab === 'beranda') content.innerHTML = renderBerandaPage();
+  else if(state.tab === 'transaksi') content.innerHTML = renderTransaksiPage();
+  else if(state.tab === 'riwayat') content.innerHTML = renderRiwayatPage();
+  else if(state.tab === 'laporan') content.innerHTML = renderLaporanPage();
+  else if(state.tab === 'anggaran') content.innerHTML = renderAnggaranPage();
+  else if(state.tab === 'akun') content.innerHTML = renderAkunPage();
+  else if(state.tab === 'akun-bagan') content.innerHTML = renderSubPageWrap(renderCOATab());
+  else if(state.tab === 'akun-berulang') content.innerHTML = renderSubPageWrap(renderRecurringCard());
+  else if(state.tab === 'akun-aset') content.innerHTML = renderTargetTabunganCard() + renderAsetTab();
+  else if(state.tab === 'akun-backup') content.innerHTML = renderSubPageWrap(renderCloudTab());
+  else content.innerHTML = renderBerandaPage();
+
+  wireGlobalNav();
+  attachTabEvents();
+}
+
+function renderSubPageWrap(inner){ return inner; }
+
+function renderHomeHeader(){
+  return `
+    <header class="home-top no-print">
+      <div class="logo-box">${ICON.wallet(22)}</div>
+      <div class="titleblock">
+        <h1>Buku Kas Keluarga</h1>
+        <p>${new Date().toLocaleDateString('id-ID', {weekday:'long', day:'2-digit', month:'long', year:'numeric'})}</p>
+      </div>
+      <button type="button" class="bell" id="open-changelog" aria-label="Riwayat perubahan">${ICON.bell()}</button>
+    </header>
+  `;
+}
+
+const PAGE_TITLES = {
+  transaksi: 'Catat Transaksi',
+  riwayat: 'Riwayat Transaksi',
+  laporan: 'Laporan',
+  anggaran: 'Anggaran',
+  akun: 'Pengaturan',
+  'akun-bagan': 'Bagan Akun',
+  'akun-berulang': 'Transaksi Berulang',
+  'akun-aset': 'Target & Aset',
+  'akun-backup': 'Backup & Pulihkan Data',
+};
+function renderPageHeader(){
+  const title = PAGE_TITLES[state.tab] || 'Buku Kas Keluarga';
+  const showBack = !!BACK_TARGET[state.tab];
+  let trailing = '';
+  if(state.tab === 'riwayat') trailing = `<button type="button" class="action-btn no-print" id="riwayat-filter-btn">${ICON.filter()}</button>`;
+  else if(state.tab === 'transaksi') trailing = `<span class="action-btn" style="border-color:transparent; background:transparent;">${ICON.doc()}</span>`;
+  return `
+    <header class="page-top no-print">
+      ${showBack ? `<button type="button" class="back-btn" id="page-back-btn">${ICON.chevLeft()}</button>` : '<span style="width:34px;"></span>'}
+      <h1>${title}</h1>
+      ${trailing || '<span style="width:34px;"></span>'}
+    </header>
+  `;
+}
+
+function renderBottomNav(){
+  const item = (tab, icon, label) => `
+    <button type="button" class="nb-item ${state.tab===tab?'active':''}" data-nav="${tab}">
+      ${icon(20)}<span>${label}</span>
+    </button>
+  `;
+  return `
+    <nav class="bottom-nav no-print">
+      ${item('beranda', ICON.home, 'Beranda')}
+      ${item('riwayat', ICON.list, 'Transaksi')}
+      <button type="button" class="nb-add" id="nb-add-btn" aria-label="Catat transaksi baru">${ICON.plus(24)}</button>
+      ${item('laporan', ICON.chart, 'Laporan')}
+      ${item('akun', ICON.user, 'Akun')}
+    </nav>
+  `;
+}
+
+function wireGlobalNav(){
+  document.querySelectorAll('[data-nav]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{ state.tab = btn.dataset.nav; render(); });
+  });
+  document.getElementById('nb-add-btn')?.addEventListener('click', ()=>{ state.tab = 'transaksi'; render(); });
+  document.getElementById('page-back-btn')?.addEventListener('click', ()=>{
+    state.tab = BACK_TARGET[state.tab] || 'beranda';
+    render();
+  });
+}
 function computeInsights(){
   const insights = [];
   if(state.journal.length === 0){
@@ -1302,39 +1487,6 @@ function monthlyTrend(monthsBack){
   return data;
 }
 
-function renderTrendChart(){
-  const data = monthlyTrend(6);
-  const max = Math.max(1, ...data.flatMap(d=>[d.pendapatan, d.beban]));
-  const chartH = 120, barW = 14, gap = 5, groupGap = 20;
-  const groupW = barW * 2 + gap;
-  const totalW = data.length * (groupW + groupGap);
-  const bars = data.map((d,i)=>{
-    const x = i * (groupW + groupGap);
-    const hP = Math.round(d.pendapatan / max * chartH);
-    const hB = Math.round(d.beban / max * chartH);
-    return `
-      <g transform="translate(${x},0)">
-        <rect x="0" y="${chartH-hP}" width="${barW}" height="${hP}" style="fill:var(--sage)" rx="2"></rect>
-        <rect x="${barW+gap}" y="${chartH-hB}" width="${barW}" height="${hB}" style="fill:var(--red)" rx="2"></rect>
-        <text x="${barW}" y="${chartH+14}" font-size="9" style="fill:var(--ink-soft)" text-anchor="middle" font-family="IBM Plex Mono, monospace">${d.label}</text>
-      </g>
-    `;
-  }).join('');
-  return `
-    <div class="table-wrap">
-    <svg width="${totalW}" height="${chartH+24}" viewBox="0 0 ${totalW} ${chartH+24}" style="min-width:${totalW}px; display:block;">
-      ${bars}
-    </svg>
-    </div>
-    <div style="display:flex; gap:16px; margin-top:8px; font-size:11px; color:var(--ink-soft);">
-      <span><span style="display:inline-block;width:9px;height:9px;background:var(--sage);border-radius:2px;margin-right:4px;"></span>Pemasukan</span>
-      <span><span style="display:inline-block;width:9px;height:9px;background:var(--red);border-radius:2px;margin-right:4px;"></span>Pengeluaran</span>
-    </div>
-  `;
-}
-
-// Alokasi pengeluaran bulan ini berdasarkan kelompok 50/30/20 (Kebutuhan Pokok / Keinginan / Tabungan)
-// yang ditandai manual per akun Beban lewat field "grup" di form Tambah Akun Baru.
 function grup503020(){
   const now = new Date();
   const thisStart = new Date(now.getFullYear(), now.getMonth(), 1);
@@ -1353,179 +1505,243 @@ function grup503020(){
   return { totals, grandTotal };
 }
 
-function renderDashboardTab(){
-  const asetLikuid = liquidAsetAccounts();
-  const asetTetap = fixedAsetAccounts();
-  const totalLikuid = asetLikuid.reduce((sum,a)=> sum + accountBalance(a.kode), 0);
-  const totalTetap = asetTetap.reduce((sum,a)=> sum + accountBalance(a.kode), 0);
-  const totalAset = totalLikuid + totalTetap;
-
-  const asetCards = asetLikuid.map(a=>`
-    <div class="stat">
-      <div class="k">${a.nama}</div>
-      <div class="v">${rupiah(accountBalance(a.kode))}</div>
-    </div>
-  `).join('') || '<div class="empty">Belum ada akun bertipe Aset</div>';
-
-  const asetTetapCards = asetTetap.map(a=>`
-    <div class="stat">
-      <div class="k">${a.nama}</div>
-      <div class="v">${rupiah(accountBalance(a.kode))}</div>
-    </div>
-  `).join('') || '<div class="empty">Belum ada aset tetap. Tambahkan di tab Aset.</div>';
-
-  const now = new Date();
-  const thisStart = new Date(now.getFullYear(), now.getMonth(), 1);
-  const thisEnd = new Date(now.getFullYear(), now.getMonth()+1, 1);
-  let pendapatanBulanIni = 0, bebanBulanIni = 0;
-  state.journal.forEach(e=>{
-    const d = new Date(e.tanggal+'T00:00:00');
-    if(d < thisStart || d >= thisEnd) return;
-    const dAcc = accountByCode(e.debit), kAcc = accountByCode(e.kredit);
-    if(kAcc && kAcc.tipe === 'Pendapatan') pendapatanBulanIni += Number(e.jumlah);
-    if(dAcc && dAcc.tipe === 'Beban') bebanBulanIni += Number(e.jumlah);
-  });
-  const selisih = pendapatanBulanIni - bebanBulanIni;
-
-  const todayISO = new Date().toISOString().slice(0,10);
-  const hasToday = state.journal.some(e=>e.tanggal === todayISO);
-  const reminderCard = !hasToday ? `
-    <div class="card" style="border-color:var(--gold); background:rgba(173,138,78,0.06);">
-      <h2 style="font-size:14px;">🔔 Pengingat</h2>
-      <p class="sub" style="margin:0;">Belum ada transaksi tercatat hari ini. Yuk catat lewat tab Jurnal supaya pembukuan tetap rapi.</p>
-    </div>
-  ` : '';
-
-  // Status koneksi ke cloud (bukan cuma pengingat backup Excel lagi) — supaya
-  // dari Dasbor langsung kelihatan apakah HP ini terhubung & tersinkron atau tidak.
-  const backupDays = daysSinceBackup();
-  const usageKB = localStorageUsageKB();
-  const { count: fotoCount, totalKB: fotoKB } = fotoStats();
-  const s = state.sync || SYNC_DEFAULTS;
-  const hasSyncError = cloudReady() && !!s.lastSyncError;
-  const isConnected = cloudReady() && navigator.onLine && !!(s.lastPush || s.lastPull) && !hasSyncError;
-  const isPendingFirstSync = cloudReady() && !s.lastPush && !s.lastPull && !hasSyncError;
-  const isOffline = cloudReady() && !navigator.onLine;
-  const needBackupWarning = !cloudReady() && (backupDays === null || backupDays >= 7);
-  const statusColor = isConnected ? 'var(--sage)' : (hasSyncError || needBackupWarning ? 'var(--red-soft)' : 'var(--gold)');
-  const statusIcon = isConnected ? '✅' : (hasSyncError ? '❌' : (isOffline ? '📶' : (cloudReady() ? '⏳' : '🔌')));
-  const statusTitle = isConnected ? 'Terhubung ke Cloud' : (hasSyncError ? 'Gagal Sinkron' : (isOffline ? 'Offline — Menunggu Koneksi' : (cloudReady() ? 'Terhubung — Menunggu Sinkron Pertama' : 'Tidak Terhubung ke Cloud')));
-  const statusDetail = isConnected
-    ? `Tersinkron otomatis — versi cloud saat ini: v${s.cloudVersion ?? '?'}. Pull terakhir: ${fmtWaktu(s.lastPull)}.`
-    : hasSyncError
-      ? `${s.lastSyncError} Cek URL Worker/Access Token di tab Cloud, lalu tekan "Sinkron Sekarang".`
-      : isOffline
-      ? 'Sinkron cloud sudah diaktifkan, tapi HP sedang offline. Akan tersinkron otomatis begitu online lagi.'
-      : cloudReady()
-        ? 'URL Worker sudah tersimpan, tapi belum ada data yang berhasil dikirim/ditarik. Buka tab Cloud untuk memaksa sinkron pertama.'
-        : `Data hanya tersimpan di browser HP ini — sekitar ${usageKB} KB terpakai${fotoCount > 0 ? ` (${fotoKB} KB dari ${fotoCount} foto struk)` : ''}. Aktifkan sinkron cloud di tab Cloud supaya aman & bisa dibuka dari HP lain.`;
-  const backupCard = `
-    <div class="card" style="border-color:${statusColor}; background:${isConnected ? 'rgba(61,122,92,0.06)' : (needBackupWarning ? 'rgba(178,59,59,0.05)' : 'rgba(166,130,75,0.06)')};">
-      <h2 style="font-size:14px;">${statusIcon} ${statusTitle}</h2>
-      <p class="sub" style="margin:0 0 8px;">${statusDetail}</p>
-      ${!cloudReady() && needBackupWarning ? `<p class="sub" style="margin:0; color:var(--red);">Sementara itu, disarankan backup manual lewat tab Jurnal → "Ekspor ke Excel" (${backupDays === null ? 'belum pernah backup' : `terakhir ${backupDays} hari lalu`}).</p>` : ''}
-      ${fotoCount > 5 ? `<p class="sub" style="margin:6px 0 0;">Tip: kelola/bersihkan foto struk lama di tab Jurnal → kartu "Kelola Foto Struk".</p>` : ''}
-    </div>
-  `;
-
-  // Deteksi kasar "data kelihatan hilang": tidak ada transaksi maupun saldo awal sama sekali.
-  // Ini bisa berarti pengguna baru, ATAU cache/data browser baru saja terhapus — jadi beri
-  // ajakan pulihkan yang aman ditampilkan di kedua kondisi (tidak mengganggu kalau memang baru).
-  const looksEmpty = state.journal.length === 0 && Object.keys(state.openingBalances).length === 0;
-  const restoreHint = looksEmpty ? `
-    <div class="card">
-      <h2 style="font-size:14px;">📂 Belum Ada Data Tercatat</h2>
-      <p class="sub" style="margin:0;">Kalau ini bukan pertama kali Anda membuka Buku Kas dan datanya tiba-tiba kosong (mis. baru saja hapus cache browser), pulihkan lewat tab Jurnal → "Impor dari Excel" pakai file backup terakhir Anda.</p>
-    </div>
-  ` : '';
-
-  const { totals: grupTotals, grandTotal: grupGrand } = grup503020();
-  const grupOrder = ['Kebutuhan Pokok','Keinginan','Tabungan','Lainnya'];
-  const grupRows = grupOrder
-    .filter(k => grupTotals[k] > 0)
-    .map(k=>{
-      const pct = grupGrand > 0 ? Math.round(grupTotals[k] / grupGrand * 100) : 0;
-      return `
-        <div class="breakdown-row">
-          <div class="nm">${k}</div>
-          <div class="bar"><div style="width:${pct}%"></div></div>
-          <div class="val">${rupiah(grupTotals[k])} (${pct}%)</div>
-        </div>
-      `;
-    }).join('') || '<div class="empty">Belum ada pengeluaran berkategori bulan ini</div>';
-
-  const insightItems = computeInsights().map(i=>`
-    <div class="insight-row">
-      <span class="insight-icon">${i.icon}</span>
-      <span class="insight-text">${i.text}</span>
-    </div>
-  `).join('');
-
-  return `
-    ${restoreHint}
-    ${reminderCard}
-    ${backupCard}
-
-    <div class="card">
-      <h2>Total Kekayaan</h2>
-      <p class="sub">Aset Likuid (siap pakai) ditambah Aset Tetap (kendaraan, emas, dsb).</p>
-      <div class="summary-grid" style="grid-template-columns:1fr; margin-bottom:12px;">
-        <div class="stat"><div class="k">Total Kekayaan</div><div class="v">${rupiah(totalAset)}</div></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Aset Likuid</h2>
-      <p class="sub">Kas, Tabungan, dan sejenisnya — siap dipakai kapan saja.</p>
-      <div class="summary-grid" style="grid-template-columns:1fr; margin-bottom:12px;">
-        <div class="stat"><div class="k">Total Aset Likuid</div><div class="v">${rupiah(totalLikuid)}</div></div>
-      </div>
-      <div class="summary-grid">${asetCards}</div>
-    </div>
-
-    <div class="card">
-      <h2>Aset Tetap</h2>
-      <p class="sub">Kendaraan, emas, properti, dsb — nilainya bisa naik-turun, dikelola di tab Aset.</p>
-      <div class="summary-grid" style="grid-template-columns:1fr; margin-bottom:12px;">
-        <div class="stat"><div class="k">Total Aset Tetap</div><div class="v">${rupiah(totalTetap)}</div></div>
-      </div>
-      <div class="summary-grid">${asetTetapCards}</div>
-    </div>
-
-    <div class="card">
-      <h2>Bulan Ini — ${monthNames[now.getMonth()]} ${now.getFullYear()}</h2>
-      <p class="sub">Dihitung dari seluruh transaksi jurnal ke akun Pendapatan &amp; Beban.</p>
-      <div class="summary-grid">
-        <div class="stat in"><div class="k">Pemasukan</div><div class="v">${rupiah(pendapatanBulanIni)}</div></div>
-        <div class="stat out"><div class="k">Pengeluaran</div><div class="v">${rupiah(bebanBulanIni)}</div></div>
-        <div class="stat"><div class="k">Selisih</div><div class="v" style="color:${selisih>=0?'var(--sage)':'var(--red)'}">${rupiah(selisih)}</div></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Tren 6 Bulan Terakhir</h2>
-      <p class="sub">Perbandingan pemasukan vs pengeluaran tiap bulan.</p>
-      ${renderTrendChart()}
-    </div>
-
-    <div class="card">
-      <h2>Alokasi 50/30/20</h2>
-      <p class="sub">Pengeluaran bulan ini berdasarkan kelompok kategori (diatur di Bagan Akun).</p>
-      ${grupRows}
-    </div>
-
-    <div class="card">
-      <h2>Insight Otomatis</h2>
-      <p class="sub">Ringkasan otomatis berdasarkan data yang sudah tercatat.</p>
-      ${insightItems}
-    </div>
-  `;
+// ---------- Terbilang: ubah angka jadi kata (bahasa Indonesia), dipakai di sub-judul Saldo Kas ----------
+const TERBILANG_SATUAN = ['', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan', 'sepuluh', 'sebelas'];
+function terbilangBelasan(n){
+  if(n < 12) return TERBILANG_SATUAN[n];
+  if(n < 20) return TERBILANG_SATUAN[n-10] + ' belas';
+  if(n < 100) return (TERBILANG_SATUAN[Math.floor(n/10)] || '') + ' puluh' + (n%10 ? ' ' + TERBILANG_SATUAN[n%10] : '');
+  if(n < 200) return 'seratus' + (n%100 ? ' ' + terbilangBelasan(n%100) : '');
+  if(n < 1000) return TERBILANG_SATUAN[Math.floor(n/100)] + ' ratus' + (n%100 ? ' ' + terbilangBelasan(n%100) : '');
+  return '';
+}
+function terbilang(n){
+  n = Math.round(Math.abs(Number(n) || 0));
+  if(n === 0) return 'nol rupiah';
+  function chunk(num, satuan){
+    if(num === 0) return '';
+    if(satuan === 'ribu' && num === 1) return 'seribu ';
+    return terbilangGrup(num) + ' ' + satuan + ' ';
+  }
+  function terbilangGrup(num){
+    if(num < 1000) return terbilangBelasan(num);
+    return terbilangGrup(Math.floor(num/1000)) + ' ribu' + (num%1000 ? ' ' + terbilangBelasan(num%1000) : '');
+  }
+  const miliar = Math.floor(n / 1000000000);
+  const juta = Math.floor((n % 1000000000) / 1000000);
+  const ribu = Math.floor((n % 1000000) / 1000);
+  const sisa = n % 1000;
+  let hasil = '';
+  hasil += chunk(miliar, 'miliar');
+  hasil += chunk(juta, 'juta');
+  hasil += chunk(ribu, 'ribu');
+  if(sisa) hasil += terbilangBelasan(sisa) + ' ';
+  return (hasil.trim() + ' rupiah').replace(/\s+/g,' ');
 }
 
-// ---------- COA TAB ----------
-// Akun Aset "utama" (tidak punya induk) yang berhak diisi saldo awal sendiri —
-// otomatis mengikuti Bagan Akun, jadi kalau nanti ditambah akun Aset baru
-// (mis. Emas, E-Wallet) langsung muncul di sini tanpa perlu ubah kode.
+function bulanIniRange(){
+  const now = new Date();
+  return { start: new Date(now.getFullYear(), now.getMonth(), 1), end: new Date(now.getFullYear(), now.getMonth()+1, 1), label: monthNames[now.getMonth()] + ' ' + now.getFullYear() };
+}
+
+function totalBulanIni(){
+  const { start, end } = bulanIniRange();
+  let masuk = 0, keluar = 0;
+  state.journal.forEach(e=>{
+    const d = new Date(e.tanggal+'T00:00:00');
+    if(d < start || d >= end) return;
+    const dAcc = accountByCode(e.debit), kAcc = accountByCode(e.kredit);
+    if(kAcc && kAcc.tipe === 'Pendapatan') masuk += Number(e.jumlah);
+    if(dAcc && dAcc.tipe === 'Beban') keluar += Number(e.jumlah);
+  });
+  return { masuk, keluar, selisih: masuk - keluar };
+}
+
+// Klasifikasi sederhana masuk/keluar untuk daftar "Transaksi Terkini" di Beranda
+// & Riwayat — entri yang tidak cocok pola pemasukan/pengeluaran sederhana
+// (mis. transfer antar akun, penyesuaian saldo) tetap ditampilkan netral.
+function klasifikasiEntri(e){
+  const dAcc = accountByCode(e.debit), kAcc = accountByCode(e.kredit);
+  if(kAcc && kAcc.tipe === 'Pendapatan') return { jenis:'masuk', kategori: kAcc.nama };
+  if(dAcc && dAcc.tipe === 'Beban') return { jenis:'keluar', kategori: dAcc.nama };
+  return { jenis:'lain', kategori: (dAcc && dAcc.nama) || e.debit };
+}
+
+function renderBerandaPage(){
+  const bal = kasBalance();
+  const { masuk, keluar, selisih } = totalBulanIni();
+  const { label: bulanLabel } = bulanIniRange();
+
+  const recent = state.journal.slice().sort((a,b)=> b.tanggal.localeCompare(a.tanggal) || b.id - a.id).slice(0, 5);
+  const recentRows = recent.map(e=>{
+    const k = klasifikasiEntri(e);
+    const jenisClass = k.jenis === 'masuk' ? 'masuk' : (k.jenis === 'keluar' ? 'keluar' : '');
+    const ico = k.jenis === 'masuk' ? ICON.arrowDown(16) : (k.jenis === 'keluar' ? ICON.arrowUp(16) : ICON.scale(16));
+    const sign = k.jenis === 'masuk' ? '+' : (k.jenis === 'keluar' ? '-' : '');
+    return `
+      <div class="tx-row ${jenisClass}">
+        <div class="tx-ico">${ico}</div>
+        <div class="tx-mid">
+          <div class="tx-name">${e.keterangan || k.kategori}</div>
+          <div class="tx-meta">${fmtDate(e.tanggal)} &middot; ${k.jenis==='masuk'?'Pemasukan':(k.jenis==='keluar'?'Pengeluaran':'Mutasi')}</div>
+        </div>
+        <div class="tx-amt">${sign}${rupiah(e.jumlah)}</div>
+      </div>
+    `;
+  }).join('') || `<div class="empty">Belum ada transaksi tercatat.</div>`;
+
+  return `
+    <div class="saldo-hero">
+      <div class="lbl">
+        <span>Saldo Kas</span>
+        <button type="button" class="eye-btn" id="toggle-saldo-visibility" aria-label="Tampilkan/sembunyikan saldo">${saldoTersembunyi ? ICON.eyeOff(18) : ICON.eye(18)}</button>
+      </div>
+      <div class="amt">${saldoTersembunyi ? 'Rp ••••••••' : rupiah(bal)}</div>
+      <div class="sub" style="text-transform:capitalize;">${saldoTersembunyi ? 'Saldo disembunyikan' : terbilang(bal)}</div>
+    </div>
+
+    <div class="section-head"><h3>Ringkasan Bulan Ini</h3><span style="font-size:var(--fs-xs); color:var(--ink-soft); font-weight:600;">${bulanLabel}</span></div>
+    <div class="mini-stats">
+      <div class="mini-stat masuk"><div class="ico">${ICON.arrowDown(15)}</div><div class="k">Pemasukan</div><div class="v">${rupiah(masuk)}</div></div>
+      <div class="mini-stat keluar"><div class="ico">${ICON.arrowUp(15)}</div><div class="k">Pengeluaran</div><div class="v">${rupiah(keluar)}</div></div>
+      <div class="mini-stat selisih"><div class="ico">${ICON.scale(15)}</div><div class="k">Selisih</div><div class="v">${rupiah(selisih)}</div></div>
+    </div>
+
+    <div class="section-head"><h3>Transaksi Terkini</h3><a id="beranda-lihat-semua">Lihat semua</a></div>
+    <div class="tx-list">${recentRows}</div>
+  `;
+}
+const METODE_BAYAR = ['Tunai', 'Transfer Bank', 'E-Wallet', 'Kartu Debit', 'Kartu Kredit'];
+
+function renderTransaksiPage(){
+  const isMasuk = transaksiJenis === 'pemasukan';
+  const kategoriAccounts = isMasuk
+    ? state.coa.filter(a=>a.tipe==='Pendapatan')
+    : state.coa.filter(a=>a.tipe==='Beban' && a.kode!=='902');
+  const akunAccounts = liquidAsetAccounts();
+  const kategoriOptions = kategoriAccounts.map(a=>`<option value="${a.kode}">${a.nama}</option>`).join('') || '<option value="">— Belum ada kategori, tambah lewat Bagan Akun —</option>';
+  const akunOptions = akunAccounts.map(a=>`<option value="${a.kode}">${a.nama}</option>`).join('') || '<option value="">— Belum ada akun kas —</option>';
+  const metodeOptions = METODE_BAYAR.map(m=>`<option value="${m}">${m}</option>`).join('');
+
+  return `
+    <div class="seg-toggle">
+      <button type="button" class="masuk ${isMasuk?'active':''}" data-jenis="pemasukan">Pemasukan</button>
+      <button type="button" class="keluar ${!isMasuk?'active':''}" data-jenis="pengeluaran">Pengeluaran</button>
+    </div>
+    <form id="tx-form">
+      <label for="tx-tanggal">Tanggal</label>
+      <input type="date" id="tx-tanggal" required>
+
+      <label for="tx-kategori">Kategori</label>
+      <select id="tx-kategori">${kategoriOptions}</select>
+
+      <label for="tx-nominal">Nominal (Rp)</label>
+      <input type="text" inputmode="numeric" class="ribuan-input" id="tx-nominal" placeholder="0" required>
+
+      <label for="tx-deskripsi">Deskripsi (opsional)</label>
+      <input type="text" id="tx-deskripsi" placeholder="cth. Gaji bulanan Agustus 2024">
+
+      <label for="tx-metode">Metode Pembayaran</label>
+      <select id="tx-metode">${metodeOptions}</select>
+
+      <label for="tx-akun">Akun</label>
+      <select id="tx-akun">${akunOptions}</select>
+
+      <label for="tx-foto">Foto Struk (opsional)</label>
+      <input type="file" id="tx-foto" accept="image/*">
+
+      <button type="submit" class="btn btn-primary" style="width:100%;">Simpan Transaksi</button>
+      <button type="button" class="btn btn-ghost" id="tx-save-again" style="width:100%; margin-top:10px;">Simpan &amp; Catat Lagi</button>
+      <div class="status-msg" id="tx-msg"></div>
+    </form>
+  `;
+}
+const HARI_ABBR = ['MIN','SEN','SEL','RAB','KAM','JUM','SAB'];
+
+function renderRiwayatPage(){
+  const f = state.journalFilter;
+  let filtered = state.journal.filter(e=>{
+    if(f.q){
+      const k = klasifikasiEntri(e);
+      const hay = ((e.keterangan||'') + ' ' + k.kategori).toLowerCase();
+      if(!hay.includes(f.q.toLowerCase())) return false;
+    }
+    if(f.akun && e.debit !== f.akun && e.kredit !== f.akun) return false;
+    if(f.dari && e.tanggal < f.dari) return false;
+    if(f.sampai && e.tanggal > f.sampai) return false;
+    if(riwayatJenisFilter !== 'semua'){
+      const k = klasifikasiEntri(e);
+      if(k.jenis !== riwayatJenisFilter) return false;
+    }
+    return true;
+  }).sort((a,b)=> b.tanggal.localeCompare(a.tanggal) || b.id - a.id);
+
+  const groups = {};
+  const order = [];
+  filtered.forEach(e=>{
+    const key = e.tanggal.slice(0,7);
+    if(!groups[key]){ groups[key] = []; order.push(key); }
+    groups[key].push(e);
+  });
+
+  const groupsHtml = order.map(key=>{
+    const [y,m] = key.split('-').map(Number);
+    const entries = groups[key];
+    let masuk = 0, keluar = 0;
+    const rows = entries.map(e=>{
+      const k = klasifikasiEntri(e);
+      const d = new Date(e.tanggal+'T00:00:00');
+      const jenisClass = k.jenis === 'masuk' ? 'masuk' : (k.jenis === 'keluar' ? 'keluar' : '');
+      const sign = k.jenis === 'masuk' ? '+' : (k.jenis === 'keluar' ? '-' : '');
+      if(k.jenis === 'masuk') masuk += Number(e.jumlah);
+      if(k.jenis === 'keluar') keluar += Number(e.jumlah);
+      return `
+        <div class="tx-row ${jenisClass}" data-del-journal="${e.id}" title="Ketuk untuk menghapus transaksi ini" style="cursor:pointer;">
+          <div class="tx-date-badge"><div class="d">${d.getDate()}</div><div class="m">${HARI_ABBR[d.getDay()]}</div></div>
+          <div class="tx-mid">
+            <div class="tx-name">${e.foto ? `<img src="${e.foto}" class="thumb" data-view-foto="${e.id}" alt="Foto struk" onclick="event.stopPropagation()">` : ''}${e.keterangan || k.kategori}</div>
+            <div class="tx-meta">${k.kategori}${k.jenis==='lain' ? '' : (k.jenis==='masuk'?' · Pemasukan':' · Pengeluaran')}</div>
+          </div>
+          <div class="tx-amt">${sign}${rupiah(e.jumlah)}</div>
+        </div>
+      `;
+    }).join('');
+    return `
+      <div class="tx-month-header">
+        <span>${monthNames[m-1]} ${y}</span>
+        <span class="totals"><span style="color:var(--sage)">${formatSaldoK(masuk)}</span><span style="color:var(--red)">${formatSaldoK(keluar)}</span></span>
+      </div>
+      <div class="tx-list" style="margin-bottom:16px; border-radius:0 0 var(--radius) var(--radius);">${rows}</div>
+    `;
+  }).join('') || `<div class="empty">Tidak ada transaksi yang cocok.</div>`;
+
+  const akunFilterOptions = state.coa.map(a=>`<option value="${a.kode}" ${f.akun===a.kode?'selected':''}>${a.kode} — ${a.nama}</option>`).join('');
+  const filterPanel = riwayatShowFilterPanel ? `
+    <div class="card" id="riwayat-filter-panel" style="margin-bottom:14px;">
+      <label for="rw-akun">Filter Akun</label>
+      <select id="rw-akun"><option value="">Semua Akun</option>${akunFilterOptions}</select>
+      <div class="row2">
+        <div><label for="rw-dari">Dari Tanggal</label><input type="date" id="rw-dari" value="${f.dari}"></div>
+        <div><label for="rw-sampai">Sampai Tanggal</label><input type="date" id="rw-sampai" value="${f.sampai}"></div>
+      </div>
+      <button type="button" class="btn btn-ghost" id="rw-reset" style="margin-top:12px;">Reset Filter</button>
+    </div>
+  ` : '';
+
+  return `
+    <div class="search-bar">
+      ${ICON.search()}
+      <input type="text" id="rw-q" placeholder="Cari transaksi atau kategori..." value="${f.q}">
+    </div>
+    <div class="chip-row">
+      <button type="button" class="chip ${riwayatJenisFilter==='semua'?'active':''}" data-jenis-filter="semua">Semua</button>
+      <button type="button" class="chip ${riwayatJenisFilter==='masuk'?'active':''}" data-jenis-filter="masuk">Pemasukan</button>
+      <button type="button" class="chip ${riwayatJenisFilter==='keluar'?'active':''}" data-jenis-filter="keluar">Pengeluaran</button>
+    </div>
+    ${filterPanel}
+    ${groupsHtml}
+  `;
+}
 function rootAsetAccounts(){
   return state.coa.filter(a=>a.tipe==='Aset' && (!a.induk || !accountByCode(a.induk)));
 }
@@ -1655,42 +1871,15 @@ function renderCOATab(){
 }
 
 // ---------- ANGGARAN TAB ----------
-function renderAnggaranTab(){
-  const bebanAccounts = state.coa.filter(a=>a.tipe==='Beban' && a.kode !== '902');
-  const now = new Date();
-  const thisStart = new Date(now.getFullYear(), now.getMonth(), 1);
-  const thisEnd = new Date(now.getFullYear(), now.getMonth()+1, 1);
+const KATEGORI_ASET = {
+  'Kendaraan': '\ud83d\ude97',
+  'Emas & Logam Mulia': '\ud83e\ude99',
+  'Properti': '\ud83c\udfe0',
+  'Elektronik': '\ud83d\udcbb',
+  'Lainnya': '\ud83d\udce6',
+};
 
-  function terpakaiBulanIni(kode){
-    let total = 0;
-    state.journal.forEach(e=>{
-      const d = new Date(e.tanggal+'T00:00:00');
-      if(d < thisStart || d >= thisEnd) return;
-      if(e.debit === kode) total += Number(e.jumlah);
-    });
-    return total;
-  }
-
-  const budgetRows = bebanAccounts.map(a=>{
-    const limit = Number(state.budgets[a.kode]) || 0;
-    const used = terpakaiBulanIni(a.kode);
-    const pct = limit > 0 ? Math.round(used / limit * 100) : 0;
-    const barColor = pct >= 100 ? 'var(--red)' : (pct >= 80 ? 'var(--gold)' : 'var(--sage)');
-    return `
-      <div class="opening-row">
-        <div class="opening-row-label">${a.kode} — ${a.nama}</div>
-        <label for="b-limit-${a.kode}">Batas Bulanan (Rp, kosongkan/0 = tanpa batas)</label>
-        <input type="text" inputmode="numeric" class="ribuan-input" id="b-limit-${a.kode}" data-kode="${a.kode}" value="${formatRibuan(limit)}" placeholder="0">
-        ${limit > 0 ? `
-          <div class="breakdown-row" style="border-bottom:none; padding:8px 0 0;">
-            <div class="bar" style="flex:1 1 100%;"><div style="width:${Math.min(100,pct)}%; background:${barColor};"></div></div>
-          </div>
-          <div class="status-msg">Terpakai ${rupiah(used)} dari ${rupiah(limit)} (${pct}%)${pct>=100 ? ' — melebihi anggaran' : ''}</div>
-        ` : `<div class="status-msg">Terpakai bulan ini: ${rupiah(used)}.</div>`}
-      </div>
-    `;
-  }).join('');
-
+function renderTargetTabunganCard(){
   const goalRows = state.savingsGoals.map(g=>{
     const current = g.akunKode ? accountBalance(g.akunKode) : 0;
     const target = Number(g.target) || 0;
@@ -1710,15 +1899,6 @@ function renderAnggaranTab(){
   const asetOptions = rootAsetAccounts().map(a=>`<option value="${a.kode}">${a.kode} — ${a.nama}</option>`).join('');
 
   return `
-    <div class="card">
-      <h2>Anggaran Bulanan per Kategori</h2>
-      <p class="sub">Set batas pengeluaran bulanan untuk tiap kategori Beban. Dasbor akan memberi peringatan saat mendekati/melebihi batas.</p>
-      <form id="budget-form">
-        ${budgetRows || '<p class="empty">Belum ada akun bertipe Beban.</p>'}
-        <button type="submit" class="btn btn-primary">Simpan Anggaran</button>
-      </form>
-    </div>
-
     <div class="card">
       <h2>Target Tabungan</h2>
       <p class="sub">Pantau progres menuju target tertentu, opsional dikaitkan ke saldo akun Aset agar terisi otomatis.</p>
@@ -1744,15 +1924,6 @@ function renderAnggaranTab(){
     </div>
   `;
 }
-
-// ---------- ASET TETAP TAB ----------
-const KATEGORI_ASET = {
-  'Kendaraan': '\ud83d\ude97',
-  'Emas & Logam Mulia': '\ud83e\ude99',
-  'Properti': '\ud83c\udfe0',
-  'Elektronik': '\ud83d\udcbb',
-  'Lainnya': '\ud83d\udce6',
-};
 
 function renderAsetTab(){
   const asetTetap = fixedAsetAccounts();
@@ -1905,135 +2076,6 @@ function renderRecurringCard(){
   `;
 }
 
-function renderJournalTab(){
-  const options = state.coa.map(a=>`<option value="${a.kode}">${a.kode} — ${a.nama}</option>`).join('');
-  const status = journalStatus();
-  const f = state.journalFilter;
-
-  const filtered = state.journal.filter(e=>{
-    if(f.q && !(e.keterangan||'').toLowerCase().includes(f.q.toLowerCase())) return false;
-    if(f.akun && e.debit !== f.akun && e.kredit !== f.akun) return false;
-    if(f.dari && e.tanggal < f.dari) return false;
-    if(f.sampai && e.tanggal > f.sampai) return false;
-    return true;
-  }).sort((a,b)=> b.tanggal.localeCompare(a.tanggal) || b.id - a.id);
-
-  const filterAktif = !!(f.q || f.akun || f.dari || f.sampai);
-  const olehSuggestions = [...new Set(state.journal.map(e=>e.oleh).filter(Boolean))];
-
-  const rows = filtered.map(e=>{
-    const d = accountByCode(e.debit);
-    const k = accountByCode(e.kredit);
-    const valid = isEntryValid(e);
-    return `
-      <tr class="${valid ? '' : 'row-invalid'}">
-        <td class="mono">${fmtDate(e.tanggal)}</td>
-        <td>
-          ${e.foto ? `<img src="${e.foto}" class="thumb" data-view-foto="${e.id}" alt="Foto struk"><button type="button" class="btn-danger" style="padding:1px 5px; font-size:9px; margin-top:0; vertical-align:middle;" data-del-foto="${e.id}" title="Hapus foto ini saja">hapus foto</button>` : ''}
-          ${e.keterangan || '<span style="color:var(--ink-soft)">—</span>'}${valid ? '' : ' <span class="tag beban">⚠ Tidak balance</span>'}
-          ${e.oleh ? `<br><span style="font-size:10px; color:var(--ink-soft);">oleh ${e.oleh}</span>` : ''}
-        </td>
-        <td class="mono">${d ? d.nama : (e.debit + ' (tidak ditemukan)')}</td>
-        <td class="mono">${k ? k.nama : (e.kredit + ' (tidak ditemukan)')}</td>
-        <td class="amt">${rupiah(e.jumlah)}</td>
-        <td class="delrow"><button class="btn-danger" data-del-journal="${e.id}">Hapus</button></td>
-      </tr>
-    `;
-  }).join('');
-
-  return `
-    <div class="card">
-      <h2>Impor &amp; Ekspor Excel</h2>
-      <p class="sub">Ekspor untuk cadangan atau pencatatan manual di Excel, lalu impor kembali. Jangan ubah nama kolom pada hasil ekspor.</p>
-      <div class="toolbar">
-        <button type="button" id="export-excel" class="btn btn-ghost">Ekspor ke Excel</button>
-        <label for="import-excel" class="btn btn-ghost" style="cursor:pointer;">Impor dari Excel</label>
-        <input type="file" id="import-excel" accept=".xlsx,.xls" style="display:none;">
-      </div>
-      <div class="status-msg" id="import-msg"></div>
-    </div>
-
-    ${renderFotoManagerCard()}
-
-    <div class="card">
-      <h2>Catat Transaksi Baru</h2>
-      <p class="sub">Isi form ini tiap kali detailnya beda-beda (jumlah/tanggal berubah setiap transaksi). Untuk transaksi rutin dengan nominal sama tiap bulan, pakai "Transaksi Berulang" di bawah.</p>
-      <form id="journal-form">
-        <div class="row2">
-          <div>
-            ${fieldLabel('j-tanggal', 'Tanggal', 'Tanggal transaksi terjadi. Terisi hari ini secara default — ubah kalau Anda mencatat transaksi yang sudah lewat.')}
-            <input type="date" id="j-tanggal" required>
-          </div>
-          <div>
-            ${fieldLabel('j-jumlah', 'Jumlah (Rp)', 'Nilai uang transaksi ini. Ketik angka saja, format ribuan otomatis mengikuti (mis. ketik 50000 jadi 50.000).')}
-            <input type="text" inputmode="numeric" class="ribuan-input" id="j-jumlah" placeholder="0" required>
-          </div>
-        </div>
-        ${fieldLabel('j-keterangan', 'Keterangan', 'Catatan bebas supaya nanti mudah diingat, mis. "Belanja sayur di pasar".')}
-        <input type="text" id="j-keterangan" placeholder="cth. Belanja bulanan di pasar">
-        <div class="row2">
-          <div>
-            ${fieldLabel('j-debit', 'Akun Didebit (bertambah)', 'Akun yang nilainya BERTAMBAH karena transaksi ini. Untuk pengeluaran, isi kategori Beban-nya (mis. Beban Makan & Minum). Untuk pemasukan, isi Kas/Tabungan Anda.')}
-            <select id="j-debit">${options}</select>
-          </div>
-          <div>
-            ${fieldLabel('j-kredit', 'Akun Dikredit (berkurang)', 'Akun yang nilainya BERKURANG karena transaksi ini. Untuk pengeluaran, isi Kas/Tabungan yang berkurang. Untuk pemasukan, isi sumbernya (mis. Pendapatan Gaji).')}
-            <select id="j-kredit">${options}</select>
-          </div>
-        </div>
-        <div class="row2">
-          <div>
-            ${fieldLabel('j-oleh', 'Dicatat Oleh (opsional)', 'Nama anggota keluarga yang mencatat transaksi ini, supaya nanti tahu siapa yang belanja apa.')}
-            <input type="text" id="j-oleh" list="oleh-list" placeholder="cth. Ibu, Ayah">
-            <datalist id="oleh-list">${olehSuggestions.map(o=>`<option value="${o}"></option>`).join('')}</datalist>
-          </div>
-          <div>
-            ${fieldLabel('j-foto', 'Foto Struk (opsional)', 'Lampirkan foto struk/nota sebagai bukti. Foto otomatis dikompres supaya hemat ruang penyimpanan.')}
-            <input type="file" id="j-foto" accept="image/*">
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Simpan Transaksi</button>
-        <div class="status-msg">Contoh pengeluaran: Debit "Beban Makan & Minum", Kredit "Kas". Contoh pemasukan: Debit "Kas", Kredit "Pendapatan Gaji". Sistem menolak transaksi yang akun debit dan kreditnya sama atau jumlahnya 0, sehingga jurnal selalu balance.</div>
-      </form>
-    </div>
-
-    ${renderRecurringCard()}
-
-    <div class="card">
-      <h2>Riwayat Jurnal</h2>
-      <div class="pill ${status.balanced ? 'ok' : 'warn'}">
-        ${status.balanced ? '✓ Jurnal Seimbang' : `⚠ ${status.invalid} entri tidak balance`}
-      </div>
-      <label for="jf-q">Cari Keterangan</label>
-      <input type="text" id="jf-q" value="${f.q}" placeholder="cth. makan, listrik">
-      <div class="row2">
-        <div>
-          <label for="jf-akun">Filter Akun</label>
-          <select id="jf-akun">
-            <option value="">Semua Akun</option>
-            ${state.coa.map(a=>`<option value="${a.kode}" ${f.akun===a.kode?'selected':''}>${a.kode} — ${a.nama}</option>`).join('')}
-          </select>
-        </div>
-        <div></div>
-      </div>
-      <div class="row2">
-        <div><label for="jf-dari">Dari Tanggal</label><input type="date" id="jf-dari" value="${f.dari}"></div>
-        <div><label for="jf-sampai">Sampai Tanggal</label><input type="date" id="jf-sampai" value="${f.sampai}"></div>
-      </div>
-      ${filterAktif ? `<button type="button" class="btn btn-ghost" id="jf-reset" style="margin-top:10px;">Reset Filter</button>` : ''}
-      <div class="table-wrap" style="margin-top:14px;">
-      <table>
-        <thead><tr><th>Tanggal</th><th>Keterangan</th><th>Debit</th><th>Kredit</th><th class="amt">Jumlah</th><th></th></tr></thead>
-        <tbody>${rows || `<tr><td colspan="6" class="empty">${filterAktif ? 'Tidak ada transaksi yang cocok dengan filter' : 'Belum ada transaksi tercatat'}</td></tr>`}</tbody>
-      </table>
-      </div>
-    </div>
-  `;
-}
-
-// ---------- REPORT TAB ----------
-// Menghitung seluruh angka laporan bulanan di satu tempat, dipakai bersama
-// oleh tampilan tab Laporan Kas maupun ekspor PDF (hindari duplikasi logika).
 function computeMonthlyReport(y, m){
   const monthStart = new Date(y, m, 1);
   const monthEnd = new Date(y, m+1, 1);
@@ -2077,6 +2119,249 @@ function computeMonthlyReport(y, m){
   return { saldoAwal, totalMasuk, totalKeluar, saldoAkhir, rows, bebanTotals };
 }
 
+function renderMiniTrendChart(){
+  const data = monthlyTrend(6);
+  const max = Math.max(1, ...data.flatMap(d=>[d.pendapatan, d.beban]));
+  const chartH = 110, barW = 13, gap = 5, groupGap = 18;
+  const groupW = barW * 2 + gap;
+  const totalW = data.length * (groupW + groupGap);
+  const bars = data.map((d,i)=>{
+    const x = i * (groupW + groupGap);
+    const hP = Math.round(d.pendapatan / max * chartH);
+    const hB = Math.round(d.beban / max * chartH);
+    return `
+      <g transform="translate(${x},0)">
+        <rect x="0" y="${chartH-hP}" width="${barW}" height="${hP}" style="fill:var(--sage)" rx="3"></rect>
+        <rect x="${barW+gap}" y="${chartH-hB}" width="${barW}" height="${hB}" style="fill:var(--red)" rx="3"></rect>
+        <text x="${barW}" y="${chartH+14}" font-size="9" style="fill:var(--ink-soft)" text-anchor="middle" font-family="IBM Plex Mono, monospace">${d.label}</text>
+      </g>
+    `;
+  }).join('');
+  return `
+    <div class="table-wrap">
+    <svg width="${totalW}" height="${chartH+24}" viewBox="0 0 ${totalW} ${chartH+24}" style="min-width:${totalW}px; display:block; margin:0 auto;">
+      ${bars}
+    </svg>
+    </div>
+    <div style="display:flex; gap:16px; margin-top:8px; justify-content:center; font-size:11px; color:var(--ink-soft);">
+      <span><span style="display:inline-block;width:9px;height:9px;background:var(--sage);border-radius:2px;margin-right:4px;"></span>Pemasukan</span>
+      <span><span style="display:inline-block;width:9px;height:9px;background:var(--red);border-radius:2px;margin-right:4px;"></span>Pengeluaran</span>
+    </div>
+  `;
+}
+
+function renderLaporanPage(){
+  const y = state.viewYear, m = state.viewMonth;
+  const { saldoAwal, totalMasuk, totalKeluar, saldoAkhir, rows: entryRows, bebanTotals } = computeMonthlyReport(y, m);
+
+  const tabs = `
+    <div class="pill-tabs no-print">
+      <button type="button" data-lap-tab="ringkasan" class="${laporanSubTab==='ringkasan'?'active':''}">Ringkasan</button>
+      <button type="button" data-lap-tab="aruskas" class="${laporanSubTab==='aruskas'?'active':''}">Arus Kas</button>
+      <button type="button" data-lap-tab="kategori" class="${laporanSubTab==='kategori'?'active':''}">Kategori</button>
+    </div>
+  `;
+
+  const monthNav = `
+    <div class="month-nav no-print">
+      <button id="prev-month" aria-label="Bulan sebelumnya">&larr;</button>
+      <div class="mlabel">${monthNames[m]} ${y}</div>
+      <button id="next-month" aria-label="Bulan berikutnya">&rarr;</button>
+    </div>
+    <div class="toolbar no-print" style="margin-bottom:16px;">
+      <button type="button" id="print-report" class="btn btn-ghost">🖨 Cetak / Simpan PDF Laporan</button>
+      <button type="button" id="export-pdf" class="btn btn-ghost">⬇ Unduh PDF</button>
+    </div>
+  `;
+
+  let body = '';
+  if(laporanSubTab === 'ringkasan'){
+    body = `
+      <div class="summary-grid" style="grid-template-columns:1fr;">
+        <div class="stat"><div class="k">Saldo Akhir</div><div class="v" style="font-size:20px;">${rupiah(saldoAkhir)}</div></div>
+      </div>
+      <div class="card">
+        <h2>Rincian</h2>
+        <div class="opening-row"><div class="status-msg" style="margin-top:0;">Total Pemasukan</div><div style="font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--sage); font-size:16px;">${rupiah(totalMasuk)}</div></div>
+        <div class="opening-row"><div class="status-msg" style="margin-top:0;">Total Pengeluaran</div><div style="font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--red); font-size:16px;">${rupiah(totalKeluar)}</div></div>
+        <div class="opening-row"><div class="status-msg" style="margin-top:0;">Selisih</div><div style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:16px;">${rupiah(totalMasuk - totalKeluar)}</div></div>
+      </div>
+    `;
+  } else if(laporanSubTab === 'aruskas'){
+    const rows = entryRows.map(r=>`
+      <tr>
+        <td class="mono">${fmtDate(r.tanggal)}</td>
+        <td>${r.keterangan}</td>
+        <td class="amt" style="color:var(--sage)">${r.masuk ? rupiah(r.jumlah) : ''}</td>
+        <td class="amt" style="color:var(--red)">${!r.masuk ? rupiah(r.jumlah) : ''}</td>
+        <td class="amt">${rupiah(r.saldoBerjalan)}</td>
+      </tr>
+    `).join('');
+    body = `
+      <div class="summary-grid">
+        <div class="stat"><div class="k">Saldo Awal</div><div class="v">${rupiah(saldoAwal)}</div></div>
+        <div class="stat in"><div class="k">Kas Masuk</div><div class="v">${rupiah(totalMasuk)}</div></div>
+        <div class="stat out"><div class="k">Kas Keluar</div><div class="v">${rupiah(totalKeluar)}</div></div>
+      </div>
+      <div class="card">
+        <h2>Grafik Arus Kas</h2>
+        <p class="sub">6 bulan terakhir</p>
+        ${renderMiniTrendChart()}
+      </div>
+      <div class="card">
+        <h2>Mutasi Kas — ${monthNames[m]} ${y}</h2>
+        <div class="table-wrap">
+        <table>
+          <thead><tr><th>Tanggal</th><th>Keterangan</th><th class="amt">Masuk</th><th class="amt">Keluar</th><th class="amt">Saldo</th></tr></thead>
+          <tbody>${rows || '<tr><td colspan="5" class="empty">Tidak ada mutasi kas bulan ini</td></tr>'}</tbody>
+        </table>
+        </div>
+      </div>
+    `;
+  } else {
+    const maxBeban = Math.max(1, ...Object.values(bebanTotals));
+    const breakdownRows = Object.entries(bebanTotals)
+      .sort((a,b)=>b[1]-a[1])
+      .map(([nama,val])=>`
+        <div class="breakdown-row">
+          <div class="nm">${nama}</div>
+          <div class="bar"><div style="width:${(val/maxBeban*100).toFixed(0)}%"></div></div>
+          <div class="val">${rupiah(val)}</div>
+        </div>
+      `).join('') || '<div class="empty">Belum ada pengeluaran bulan ini</div>';
+    body = `
+      <div class="card">
+        <h2>Rincian Pengeluaran per Kategori</h2>
+        <p class="sub">${monthNames[m]} ${y}</p>
+        ${breakdownRows}
+      </div>
+    `;
+  }
+
+  return `
+    <div id="print-area">
+      <div class="print-only">
+        <h2>Buku Kas Keluarga</h2>
+        <p>Laporan Kas — ${monthNames[m]} ${y}</p>
+        <p>Dicetak pada ${new Date().toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'})}</p>
+      </div>
+      ${tabs}
+      ${monthNav}
+      ${body}
+    </div>
+  `;
+}
+function renderAnggaranPage(){
+  const bebanAccounts = state.coa.filter(a=>a.tipe==='Beban' && a.kode !== '902');
+  const now = new Date();
+  const thisStart = new Date(now.getFullYear(), now.getMonth(), 1);
+  const thisEnd = new Date(now.getFullYear(), now.getMonth()+1, 1);
+
+  function terpakaiBulanIni(kode){
+    let total = 0;
+    state.journal.forEach(e=>{
+      const d = new Date(e.tanggal+'T00:00:00');
+      if(d < thisStart || d >= thisEnd) return;
+      if(e.debit === kode) total += Number(e.jumlah);
+    });
+    return total;
+  }
+
+  let totalAnggaran = 0, totalTerpakai = 0;
+  const itemsHtml = bebanAccounts.map(a=>{
+    const limit = Number(state.budgets[a.kode]) || 0;
+    const used = terpakaiBulanIni(a.kode);
+    if(limit > 0){ totalAnggaran += limit; totalTerpakai += used; }
+    const pct = limit > 0 ? Math.round(used / limit * 100) : 0;
+    const barColor = pct >= 100 ? 'var(--red)' : (pct >= 80 ? 'var(--gold)' : 'var(--sage)');
+    return `
+      <div class="budget-item">
+        <div class="bi-top"><span class="nm">${a.nama}</span><span class="pct">${limit>0 ? pct+'%' : '—'}</span></div>
+        <div class="progress-track"><div style="width:${Math.min(100,pct)}%; background:${barColor};"></div></div>
+        <div class="bi-amt">${rupiah(used)} / <input type="text" inputmode="numeric" class="ribuan-input" id="b-limit-${a.kode}" data-kode="${a.kode}" value="${formatRibuan(limit)}" placeholder="0" style="display:inline-block; width:110px; padding:2px 6px; font-size:11px; margin:0;"></div>
+      </div>
+    `;
+  }).join('') || '<div class="empty">Belum ada akun bertipe Beban.</div>';
+
+  const pctTotal = totalAnggaran > 0 ? Math.round(totalTerpakai / totalAnggaran * 100) : 0;
+  const donutPct = Math.min(100, pctTotal);
+  const donutColor = pctTotal >= 100 ? 'var(--red)' : 'var(--accent)';
+
+  return `
+    <div style="font-size:var(--fs-sm); color:var(--ink-soft); font-weight:600; margin-bottom:14px;">${monthNames[state.viewMonth]} ${state.viewYear}</div>
+
+    <div class="card">
+      <h2>Ringkasan Anggaran</h2>
+      <div class="donut-wrap">
+        <div class="donut" style="background:conic-gradient(${donutColor} ${donutPct*3.6}deg, var(--surface-soft) 0deg);">
+          <div class="donut-hole"><div class="pct">${pctTotal}%</div><div class="pct-lbl">Terpakai</div></div>
+        </div>
+        <div class="donut-legend">
+          <div class="dl-row"><span class="lbl">Terpakai</span><span class="val">${rupiah(totalTerpakai)}</span></div>
+          <div class="dl-row"><span class="lbl">Dari Anggaran</span><span class="val">${rupiah(totalAnggaran)}</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Kategori Anggaran</h2>
+      <p class="sub">Ketuk angka batas di samping nominal terpakai untuk mengubahnya, lalu tekan Simpan Anggaran di bawah.</p>
+      <form id="budget-form">
+        ${itemsHtml}
+        <button type="submit" class="btn btn-primary" style="width:100%;">Simpan Anggaran</button>
+      </form>
+    </div>
+  `;
+}
+function settingsRow({icon, nama, vv, id, nav, action, trailing}){
+  return `
+    <button type="button" class="settings-row" ${id ? `id="${id}"` : ''} ${nav ? `data-settings-nav="${nav}"` : ''} ${action ? `data-settings-action="${action}"` : ''}>
+      <span class="si">${icon}</span>
+      <span class="st"><span class="nm">${nama}</span>${vv ? `<span class="vv">${vv}</span>` : ''}</span>
+      ${trailing || ICON.chevRight(16)}
+    </button>
+  `;
+}
+
+function renderAkunPage(){
+  const { count: fotoCount, totalKB: fotoKB } = fotoStats();
+  return `
+    <div class="settings-section-title">Akun &amp; Keamanan</div>
+    <div class="settings-list">
+      ${settingsRow({icon: ICON.lock(), nama:'Ubah PIN / Kata Sandi', vv:'Segera hadir', action:'pin'})}
+      ${settingsRow({icon: ICON.cloud(), nama:'Backup & Pulihkan Data', vv: state.sync && state.sync.cfUrl ? 'Tersinkron ke cloud' : 'Belum diatur', nav:'akun-backup'})}
+    </div>
+
+    <div class="settings-section-title">Kelola Keuangan</div>
+    <div class="settings-list">
+      ${settingsRow({icon: ICON.wallet(), nama:'Bagan Akun', vv:`${state.coa.length} akun`, nav:'akun-bagan'})}
+      ${settingsRow({icon: ICON.chart(), nama:'Anggaran Bulanan', vv:`${Object.keys(state.budgets).length} kategori diatur`, nav:'anggaran'})}
+      ${settingsRow({icon: ICON.repeat(), nama:'Transaksi Berulang', vv:`${state.recurring.length} template`, nav:'akun-berulang'})}
+      ${settingsRow({icon: ICON.target(), nama:'Target &amp; Aset Tetap', vv:`${state.savingsGoals.length} target tabungan`, nav:'akun-aset'})}
+    </div>
+
+    <div class="settings-section-title">Preferensi</div>
+    <div class="settings-list">
+      ${settingsRow({icon: ICON.coin(), nama:'Mata Uang', vv:'Rupiah (IDR)', action:'currency'})}
+      ${settingsRow({icon: ICON.cal(), nama:'Format Tanggal', vv: fmtDate(new Date().toISOString().slice(0,10)), action:'dateformat'})}
+      ${settingsRow({icon: ICON.palette(), nama:'Tema', vv:'Swiss Ledger', action:'theme'})}
+    </div>
+
+    <div class="settings-section-title">Data</div>
+    <div class="settings-list">
+      ${settingsRow({icon: ICON.doc(), nama:'Ekspor Data (Excel)', id:'akun-export-excel'})}
+      ${settingsRow({icon: ICON.doc(), nama:'Ekspor Laporan Bulan Ini (PDF)', id:'akun-export-pdf'})}
+      ${settingsRow({icon: ICON.doc(), nama:'Impor dari Excel', id:'akun-import-excel-btn', trailing:'<input type="file" id="akun-import-excel" accept=".xlsx,.xls" style="display:none;">' + ICON.chevRight(16)})}
+      ${fotoCount > 0 ? settingsRow({icon: ICON.doc(), nama:'Kelola Foto Struk', vv:`${fotoCount} foto · ${fotoKB} KB`, id:'akun-cleanup-fotos'}) : ''}
+    </div>
+    <div class="status-msg" id="import-msg" style="margin-bottom:8px;"></div>
+
+    <div class="settings-section-title">Tentang</div>
+    <div class="settings-list">
+      ${settingsRow({icon: ICON.info(), nama:'Tentang Aplikasi', vv:`Versi ${APP_VERSION}`, id:'akun-open-changelog'})}
+    </div>
+  `;
+}
 function fmtWaktu(iso){
   if(!iso) return 'belum pernah';
   try{ return new Date(iso).toLocaleString('id-ID', {dateStyle:'medium', timeStyle:'short'}); }
@@ -2126,8 +2411,7 @@ function renderCloudTab(){
       </div>
       <p class="sub" id="cloud-status-line" style="margin-top:10px;">${cloudStatusText()}</p>
       <p class="sub">Push terakhir: ${fmtWaktu(s.lastPush)} &middot; Pull terakhir: ${fmtWaktu(s.lastPull)}</p>
-      <p class="sub">Sinkron sepenuhnya otomatis: HP ini mengirim tiap perubahan ke cloud dan menarik pembaruan dari HP/browser lain tiap ${Math.round(CLOUD_POLL_MS/1000)} detik selama app terbuka — tanpa perlu konfirmasi apa pun. Setiap kali data lokal akan ditimpa oleh data dari cloud, cadangan otomatis dibuat dulu di HP ini.</p>
-      <p class="sub" style="margin-top:6px;">Cadangan otomatis terakhir: ${fmtWaktu(s.lastAutoBackup)} <button type="button" id="cf-restore-backup" style="background:none;border:none;color:var(--red);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;">Pulihkan cadangan ini</button></p>
+      <p class="sub">Sinkron sepenuhnya otomatis: HP ini mengirim tiap perubahan ke cloud dan menarik pembaruan dari HP/browser lain tiap ${Math.round(CLOUD_POLL_MS/1000)} detik selama app terbuka — tanpa perlu konfirmasi apa pun.</p>
     </div>
   `;
 }
@@ -2154,9 +2438,10 @@ function wireCloudTab(){
     finally{ btn.disabled = false; }
   });
   document.getElementById('cf-pull')?.addEventListener('click', async (ev)=>{
-    // Tanpa konfirmasi lagi — cloudPull() sudah otomatis membuat cadangan
-    // lokal (lihat backupLocalBeforeOverwrite) sebelum menimpa data di HP ini,
-    // jadi aman ditarik langsung tanpa nanya dulu.
+    // Tidak ada lagi cadangan lokal otomatis sebelum menimpa data (fitur itu
+    // sudah dihapus) — jadi di sini kita tanya konfirmasi dulu, supaya user
+    // sadar data di HP ini akan ditimpa oleh data dari cloud.
+    if(!confirm('Data di HP ini akan ditimpa dengan data dari cloud. Lanjutkan?')) return;
     const btn = ev.currentTarget; btn.disabled = true; btn.textContent = 'Menarik…';
     try{
       state.sync.cfUrl = document.getElementById('cf-url').value.trim() || state.sync.cfUrl;
@@ -2168,89 +2453,9 @@ function wireCloudTab(){
     }catch(e){ showToast('Gagal menarik data: ' + e.message, 'error'); }
     finally{ btn.disabled = false; }
   });
-  document.getElementById('cf-restore-backup')?.addEventListener('click', async ()=>{
-    try{
-      const savedAt = await restoreLastAutoBackup();
-      showSuccessToast('Cadangan (' + fmtWaktu(savedAt) + ') berhasil dipulihkan ke HP ini');
-      render();
-    }catch(e){ showToast(e.message, 'error'); }
-  });
 
 }
 
-function renderReportTab(){
-  const y = state.viewYear, m = state.viewMonth;
-  const { saldoAwal, totalMasuk, totalKeluar, saldoAkhir, rows: entryRows, bebanTotals } = computeMonthlyReport(y, m);
-
-  const rows = entryRows.map(r=>`
-    <tr>
-      <td class="mono">${fmtDate(r.tanggal)}</td>
-      <td>${r.keterangan}</td>
-      <td class="amt" style="color:var(--sage)">${r.masuk ? rupiah(r.jumlah) : ''}</td>
-      <td class="amt" style="color:var(--red)">${!r.masuk ? rupiah(r.jumlah) : ''}</td>
-      <td class="amt">${rupiah(r.saldoBerjalan)}</td>
-    </tr>
-  `).join('');
-
-  const maxBeban = Math.max(1, ...Object.values(bebanTotals));
-  const breakdownRows = Object.entries(bebanTotals)
-    .sort((a,b)=>b[1]-a[1])
-    .map(([nama,val])=>`
-      <div class="breakdown-row">
-        <div class="nm">${nama}</div>
-        <div class="bar"><div style="width:${(val/maxBeban*100).toFixed(0)}%"></div></div>
-        <div class="val">${rupiah(val)}</div>
-      </div>
-    `).join('') || '<div class="empty">Belum ada pengeluaran bulan ini</div>';
-
-  return `
-    <div class="month-nav no-print">
-      <button id="prev-month" aria-label="Bulan sebelumnya">&larr;</button>
-      <div class="mlabel">${monthNames[m]} ${y}</div>
-      <button id="next-month" aria-label="Bulan berikutnya">&rarr;</button>
-    </div>
-
-    <div class="toolbar no-print" style="margin-bottom:16px;">
-      <button type="button" id="print-report" class="btn btn-ghost">🖨 Cetak / Simpan PDF Laporan</button>
-      <button type="button" id="export-pdf" class="btn btn-ghost">⬇ Unduh PDF</button>
-    </div>
-
-    <div id="print-area">
-      <div class="print-only">
-        <h2>Buku Kas Keluarga</h2>
-        <p>Laporan Kas — ${monthNames[m]} ${y}</p>
-        <p>Dicetak pada ${new Date().toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'})}</p>
-      </div>
-
-      <div class="summary-grid">
-        <div class="stat"><div class="k">Saldo Awal</div><div class="v">${rupiah(saldoAwal)}</div></div>
-        <div class="stat in"><div class="k">Kas Masuk</div><div class="v">${rupiah(totalMasuk)}</div></div>
-        <div class="stat out"><div class="k">Kas Keluar</div><div class="v">${rupiah(totalKeluar)}</div></div>
-      </div>
-      <div class="summary-grid" style="grid-template-columns:1fr;">
-        <div class="stat"><div class="k">Saldo Akhir Bulan</div><div class="v">${rupiah(saldoAkhir)}</div></div>
-      </div>
-
-      <div class="card">
-        <h2>Rincian Pengeluaran per Kategori</h2>
-        <p class="sub">${monthNames[m]} ${y}</p>
-        ${breakdownRows}
-      </div>
-
-      <div class="card">
-        <h2>Mutasi Kas — ${monthNames[m]} ${y}</h2>
-        <div class="table-wrap">
-        <table>
-          <thead><tr><th>Tanggal</th><th>Keterangan</th><th class="amt">Masuk</th><th class="amt">Keluar</th><th class="amt">Saldo</th></tr></thead>
-          <tbody>${rows || '<tr><td colspan="5" class="empty">Tidak ada mutasi kas bulan ini</td></tr>'}</tbody>
-        </table>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-// Membuat file PDF laporan bulanan secara langsung (bukan lewat dialog cetak browser).
 function exportReportPDF(){
   try{
     if(!window.jspdf){
@@ -2464,8 +2669,233 @@ function handleImportFile(file){
 function attachTabEvents(){
   document.querySelectorAll('.ribuan-input').forEach(attachRibuanInput);
 
-  if(state.tab === 'cloud') wireCloudTab();
+  if(state.tab === 'akun-backup') wireCloudTab();
 
+  // ---------- BERANDA ----------
+  document.getElementById('toggle-saldo-visibility')?.addEventListener('click', ()=>{
+    saldoTersembunyi = !saldoTersembunyi;
+    render();
+  });
+  document.getElementById('beranda-lihat-semua')?.addEventListener('click', ()=>{
+    state.tab = 'riwayat'; render();
+  });
+
+  // ---------- CATAT TRANSAKSI ----------
+  const txForm = document.getElementById('tx-form');
+  if(txForm){
+    const tglEl = document.getElementById('tx-tanggal');
+    if(tglEl && !tglEl.value) tglEl.value = new Date().toISOString().slice(0,10);
+    attachEnterToNextField(txForm);
+
+    document.querySelectorAll('[data-jenis]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{ transaksiJenis = btn.dataset.jenis; render(); });
+    });
+
+    async function simpanTransaksi(keepOpen){
+      const tanggal = document.getElementById('tx-tanggal').value;
+      const kategori = document.getElementById('tx-kategori').value;
+      const nominal = parseRibuan(document.getElementById('tx-nominal').value);
+      const deskripsi = document.getElementById('tx-deskripsi').value.trim();
+      const metode = document.getElementById('tx-metode').value;
+      const akun = document.getElementById('tx-akun').value;
+      const msg = document.getElementById('tx-msg');
+      if(!kategori || !akun){
+        msg.textContent = 'Kategori/Akun belum tersedia — tambahkan dulu lewat Bagan Akun.';
+        msg.style.color = 'var(--red)';
+        return;
+      }
+      if(!nominal || nominal <= 0){
+        msg.textContent = 'Nominal harus lebih dari 0.';
+        msg.style.color = 'var(--red)';
+        return;
+      }
+      const isMasuk = transaksiJenis === 'pemasukan';
+      const debit = isMasuk ? akun : kategori;
+      const kredit = isMasuk ? kategori : akun;
+      let foto = null;
+      const fotoInput = document.getElementById('tx-foto');
+      if(fotoInput && fotoInput.files && fotoInput.files[0]){
+        try{
+          foto = await compressImageToDataURL(fotoInput.files[0]);
+          if(foto.length > 100000){
+            alert('Ukuran foto terlalu besar setelah dikompres. Transaksi tetap disimpan tanpa foto (kuota penyimpanan lokal HP terbatas).');
+            foto = null;
+          }
+        }catch(err){
+          console.error('Gagal memproses foto struk', err);
+          foto = null;
+        }
+      }
+      state.journal.push({id: Date.now(), tanggal, jumlah: nominal, keterangan: deskripsi, debit, kredit, metode, foto});
+      await saveJournal();
+      showSuccessToast('Transaksi berhasil disimpan');
+      if(keepOpen){
+        document.getElementById('tx-nominal').value = '';
+        document.getElementById('tx-deskripsi').value = '';
+        if(fotoInput) fotoInput.value = '';
+        if(msg){ msg.textContent = ''; }
+        render();
+      } else {
+        state.tab = 'beranda';
+        render();
+      }
+    }
+
+    txForm.addEventListener('submit', (e)=>{ e.preventDefault(); simpanTransaksi(false); });
+    document.getElementById('tx-save-again')?.addEventListener('click', ()=> simpanTransaksi(true));
+  }
+
+  // ---------- RIWAYAT ----------
+  document.getElementById('rw-q')?.addEventListener('input', (e)=>{
+    state.journalFilter.q = e.target.value;
+    preserveFocus(render);
+  });
+  document.querySelectorAll('[data-jenis-filter]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{ riwayatJenisFilter = btn.dataset.jenisFilter; render(); });
+  });
+  document.getElementById('riwayat-filter-btn')?.addEventListener('click', ()=>{
+    riwayatShowFilterPanel = !riwayatShowFilterPanel;
+    render();
+  });
+  document.getElementById('rw-akun')?.addEventListener('change', (e)=>{
+    state.journalFilter.akun = e.target.value; render();
+  });
+  document.getElementById('rw-dari')?.addEventListener('change', (e)=>{
+    state.journalFilter.dari = e.target.value; render();
+  });
+  document.getElementById('rw-sampai')?.addEventListener('change', (e)=>{
+    state.journalFilter.sampai = e.target.value; render();
+  });
+  document.getElementById('rw-reset')?.addEventListener('click', ()=>{
+    state.journalFilter = { q:'', akun:'', dari:'', sampai:'' };
+    riwayatJenisFilter = 'semua';
+    render();
+  });
+  document.querySelectorAll('.tx-row[data-del-journal]').forEach(row=>{
+    row.addEventListener('click', async ()=>{
+      const id = Number(row.dataset.delJournal);
+      if(!confirm('Hapus transaksi ini dari riwayat? Tindakan tidak bisa dibatalkan.')) return;
+      state.journal = state.journal.filter(e=>e.id !== id);
+      await saveJournal();
+      render();
+    });
+  });
+
+  // ---------- LAPORAN ----------
+  document.querySelectorAll('[data-lap-tab]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{ laporanSubTab = btn.dataset.lapTab; render(); });
+  });
+  const prevBtn = document.getElementById('prev-month');
+  const nextBtn = document.getElementById('next-month');
+  if(prevBtn) prevBtn.addEventListener('click', ()=>{
+    state.viewMonth--;
+    if(state.viewMonth < 0){ state.viewMonth = 11; state.viewYear--; }
+    render();
+  });
+  if(nextBtn) nextBtn.addEventListener('click', ()=>{
+    state.viewMonth++;
+    if(state.viewMonth > 11){ state.viewMonth = 0; state.viewYear++; }
+    render();
+  });
+  document.getElementById('print-report')?.addEventListener('click', ()=> window.print());
+  document.getElementById('export-pdf')?.addEventListener('click', exportReportPDF);
+
+  // ---------- ANGGARAN (reuse logika lama, id b-limit-<kode> sama persis) ----------
+  const budgetForm = document.getElementById('budget-form');
+  if(budgetForm){
+    budgetForm.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const newBudgets = {};
+      state.coa.filter(a=>a.tipe==='Beban' && a.kode !== '902').forEach(a=>{
+        const el = document.getElementById(`b-limit-${a.kode}`);
+        const val = el ? parseRibuan(el.value) : 0;
+        if(val > 0) newBudgets[a.kode] = val;
+      });
+      state.budgets = newBudgets;
+      await saveBudgets();
+      render();
+      showSuccessToast('Anggaran berhasil disimpan');
+    });
+  }
+
+  // ---------- AKUN (Pengaturan): navigasi & aksi ----------
+  document.querySelectorAll('[data-settings-nav]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{ state.tab = btn.dataset.settingsNav; render(); });
+  });
+  document.querySelectorAll('[data-settings-action]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const map = {
+        pin: 'Fitur PIN/Kata Sandi belum tersedia — akan hadir di pembaruan berikutnya.',
+        currency: 'Saat ini aplikasi hanya mendukung Rupiah (IDR).',
+        dateformat: 'Format tanggal mengikuti pengaturan bahasa Indonesia bawaan.',
+        theme: 'Saat ini hanya tersedia satu tema: Swiss Ledger.',
+      };
+      showToast(map[btn.dataset.settingsAction] || 'Segera hadir', 'info');
+    });
+  });
+  document.getElementById('akun-export-excel')?.addEventListener('click', ()=> exportExcel(false));
+  document.getElementById('akun-export-pdf')?.addEventListener('click', exportReportPDF);
+  document.getElementById('akun-import-excel-btn')?.addEventListener('click', ()=>{
+    document.getElementById('akun-import-excel')?.click();
+  });
+  document.getElementById('akun-import-excel')?.addEventListener('change', (e)=>{
+    const file = e.target.files[0];
+    if(file) handleImportFile(file);
+    e.target.value = '';
+  });
+  document.getElementById('akun-open-changelog')?.addEventListener('click', ()=>{
+    document.getElementById('changelog-modal')?.classList.add('open');
+  });
+  document.getElementById('akun-cleanup-fotos')?.addEventListener('click', async ()=>{
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - 90);
+    const cutoffISO = cutoff.toISOString().slice(0,10);
+    const targets = state.journal.filter(e=> e.foto && e.tanggal < cutoffISO);
+    if(targets.length === 0){ alert('Tidak ada foto struk yang lebih dari 90 hari.'); return; }
+    if(!confirm(`Hapus ${targets.length} foto struk yang lebih dari 90 hari? Transaksinya tetap tersimpan, hanya fotonya yang dihapus.`)) return;
+    state.journal.forEach(e=>{ if(e.foto && e.tanggal < cutoffISO) e.foto = null; });
+    await saveJournal();
+    render();
+    showSuccessToast(`${targets.length} foto struk lama berhasil dihapus`);
+  });
+
+  // Modal (changelog & lightbox foto)
+  document.getElementById('open-changelog')?.addEventListener('click', ()=>{
+    document.getElementById('changelog-modal')?.classList.add('open');
+  });
+  document.getElementById('close-changelog')?.addEventListener('click', ()=>{
+    document.getElementById('changelog-modal')?.classList.remove('open');
+  });
+  document.getElementById('changelog-modal')?.addEventListener('click', (e)=>{
+    if(e.target.id === 'changelog-modal') e.target.classList.remove('open');
+  });
+  document.getElementById('close-foto')?.addEventListener('click', ()=>{
+    document.getElementById('foto-modal')?.classList.remove('open');
+  });
+  document.getElementById('foto-modal')?.addEventListener('click', (e)=>{
+    if(e.target.id === 'foto-modal') e.target.classList.remove('open');
+  });
+  document.querySelectorAll('[data-view-foto]').forEach(img=>{
+    img.addEventListener('click', ()=>{
+      const modalImg = document.getElementById('foto-modal-img');
+      if(modalImg) modalImg.src = img.src;
+      document.getElementById('foto-modal')?.classList.add('open');
+    });
+  });
+  document.querySelectorAll('[data-del-foto]').forEach(btn=>{
+    btn.addEventListener('click', async (ev)=>{
+      ev.stopPropagation();
+      const id = Number(btn.dataset.delFoto);
+      if(!confirm('Hapus foto struk ini? Transaksinya tetap tersimpan.')) return;
+      const entry = state.journal.find(e=>e.id===id);
+      if(entry) entry.foto = null;
+      await saveJournal();
+      render();
+      showSuccessToast('Foto struk berhasil dihapus');
+    });
+  });
+
+  // ---------- Reuse utuh: Bagan Akun (COA) ----------
   const coaForm = document.getElementById('coa-form');
   if(coaForm){
     coaForm.addEventListener('submit', async (e)=>{
@@ -2488,20 +2918,13 @@ function attachTabEvents(){
       showSuccessToast('Akun baru berhasil disimpan');
     });
   }
-
   document.querySelectorAll('[data-del-coa]').forEach(btn=>{
     btn.addEventListener('click', async ()=>{
       const kode = btn.dataset.delCoa;
       const inUse = state.journal.some(e=>e.debit===kode || e.kredit===kode);
-      if(inUse){
-        alert('Akun ini masih dipakai di jurnal dan tidak bisa dihapus.');
-        return;
-      }
+      if(inUse){ alert('Akun ini masih dipakai di jurnal dan tidak bisa dihapus.'); return; }
       const hasChildren = state.coa.some(a=>a.induk===kode);
-      if(hasChildren){
-        alert('Akun ini memiliki cabang/sub-akun. Hapus cabangnya terlebih dahulu.');
-        return;
-      }
+      if(hasChildren){ alert('Akun ini memiliki cabang/sub-akun. Hapus cabangnya terlebih dahulu.'); return; }
       if(!confirm('Hapus akun ini dari Bagan Akun?')) return;
       state.coa = state.coa.filter(a=>a.kode!==kode);
       await saveCOA();
@@ -2509,8 +2932,6 @@ function attachTabEvents(){
     });
   });
 
-  // Rekonsiliasi saldo: hitung selisih dulu (disimpan sementara di closure ini),
-  // baru buat jurnal penyesuaian setelah dikonfirmasi pengguna.
   let selisihRekonsiliasi = null;
   document.getElementById('rk-hitung')?.addEventListener('click', ()=>{
     const kode = document.getElementById('rk-akun').value;
@@ -2565,50 +2986,7 @@ function attachTabEvents(){
     });
   }
 
-  const jForm = document.getElementById('journal-form');
-  if(jForm){
-    const tgl = document.getElementById('j-tanggal');
-    tgl.value = new Date().toISOString().slice(0,10);
-    attachEnterToNextField(jForm);
-    jForm.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      const tanggal = document.getElementById('j-tanggal').value;
-      const jumlah = parseRibuan(document.getElementById('j-jumlah').value);
-      const keterangan = document.getElementById('j-keterangan').value.trim();
-      const debit = document.getElementById('j-debit').value;
-      const kredit = document.getElementById('j-kredit').value;
-      const oleh = document.getElementById('j-oleh').value.trim();
-      if(debit === kredit){
-        alert('Akun debit dan kredit tidak boleh sama.');
-        return;
-      }
-      if(!jumlah || jumlah <= 0){
-        alert('Jumlah harus lebih dari 0.');
-        return;
-      }
-      let foto = null;
-      const fotoInput = document.getElementById('j-foto');
-      if(fotoInput && fotoInput.files && fotoInput.files[0]){
-        try{
-          foto = await compressImageToDataURL(fotoInput.files[0]);
-          if(foto.length > 100000){
-            alert('Ukuran foto terlalu besar setelah dikompres. Transaksi tetap disimpan tanpa foto (kuota penyimpanan lokal HP terbatas).');
-            foto = null;
-          }
-        }catch(err){
-          console.error('Gagal memproses foto struk', err);
-          alert('Gagal memproses foto struk. Transaksi tetap disimpan tanpa foto.');
-          foto = null;
-        }
-      }
-      state.journal.push({id: Date.now(), tanggal, jumlah, keterangan, debit, kredit, oleh: oleh || null, foto});
-      await saveJournal();
-      render();
-      showSuccessToast('Transaksi jurnal berhasil disimpan');
-    });
-  }
-
-  // Transaksi berulang: simpan template, atau langsung catat sebagai transaksi hari ini.
+  // ---------- Reuse utuh: Transaksi Berulang ----------
   const recurringForm = document.getElementById('recurring-form');
   if(recurringForm){
     attachEnterToNextField(recurringForm);
@@ -2649,102 +3027,7 @@ function attachTabEvents(){
     });
   });
 
-  // Filter riwayat jurnal — pakai preserveFocus supaya kursor tidak lompat saat mengetik.
-  ['jf-q','jf-akun','jf-dari','jf-sampai'].forEach(id=>{
-    document.getElementById(id)?.addEventListener('input', ()=>{
-      state.journalFilter = {
-        q: document.getElementById('jf-q')?.value || '',
-        akun: document.getElementById('jf-akun')?.value || '',
-        dari: document.getElementById('jf-dari')?.value || '',
-        sampai: document.getElementById('jf-sampai')?.value || '',
-      };
-      preserveFocus(render);
-    });
-  });
-  document.getElementById('jf-reset')?.addEventListener('click', ()=>{
-    state.journalFilter = { q:'', akun:'', dari:'', sampai:'' };
-    render();
-  });
-
-  // Lightbox foto struk
-  document.querySelectorAll('[data-view-foto]').forEach(img=>{
-    img.addEventListener('click', ()=>{
-      const modalImg = document.getElementById('foto-modal-img');
-      if(modalImg) modalImg.src = img.src;
-      document.getElementById('foto-modal')?.classList.add('open');
-    });
-  });
-
-  // Hapus foto pada satu transaksi saja (transaksinya tetap ada)
-  document.querySelectorAll('[data-del-foto]').forEach(btn=>{
-    btn.addEventListener('click', async (ev)=>{
-      ev.stopPropagation();
-      const id = Number(btn.dataset.delFoto);
-      if(!confirm('Hapus foto struk ini? Transaksinya tetap tersimpan.')) return;
-      const entry = state.journal.find(e=>e.id===id);
-      if(entry) entry.foto = null;
-      await saveJournal();
-      render();
-      showSuccessToast('Foto struk berhasil dihapus');
-    });
-  });
-
-  // Pembersihan massal: hapus foto struk yang lebih dari 90 hari (transaksi tetap tersimpan)
-  document.getElementById('cleanup-old-fotos')?.addEventListener('click', async ()=>{
-    const cutoff = new Date();
-    cutoff.setDate(cutoff.getDate() - 90);
-    const cutoffISO = cutoff.toISOString().slice(0,10);
-    const targets = state.journal.filter(e=> e.foto && e.tanggal < cutoffISO);
-    if(targets.length === 0){
-      alert('Tidak ada foto struk yang lebih dari 90 hari.');
-      return;
-    }
-    if(!confirm(`Hapus ${targets.length} foto struk yang lebih dari 90 hari? Transaksinya tetap tersimpan, hanya fotonya yang dihapus.`)) return;
-    state.journal.forEach(e=>{ if(e.foto && e.tanggal < cutoffISO) e.foto = null; });
-    await saveJournal();
-    render();
-    showSuccessToast(`${targets.length} foto struk lama berhasil dihapus`);
-  });
-
-  document.getElementById('export-excel')?.addEventListener('click', ()=> exportExcel(false));
-  document.getElementById('import-excel')?.addEventListener('change', (e)=>{
-    const file = e.target.files[0];
-    if(file) handleImportFile(file);
-    e.target.value = '';
-  });
-
-  document.getElementById('print-report')?.addEventListener('click', ()=> window.print());
-  document.getElementById('export-pdf')?.addEventListener('click', exportReportPDF);
-
-  document.querySelectorAll('[data-del-journal]').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
-      const id = Number(btn.dataset.delJournal);
-      if(!confirm('Hapus transaksi ini dari jurnal? Tindakan tidak bisa dibatalkan.')) return;
-      state.journal = state.journal.filter(e=>e.id !== id);
-      await saveJournal();
-      render();
-    });
-  });
-
-  // Anggaran per kategori
-  const budgetForm = document.getElementById('budget-form');
-  if(budgetForm){
-    budgetForm.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      const newBudgets = {};
-      state.coa.filter(a=>a.tipe==='Beban' && a.kode !== '902').forEach(a=>{
-        const el = document.getElementById(`b-limit-${a.kode}`);
-        const val = el ? parseRibuan(el.value) : 0;
-        if(val > 0) newBudgets[a.kode] = val;
-      });
-      state.budgets = newBudgets;
-      await saveBudgets();
-      render();
-      showSuccessToast('Anggaran berhasil disimpan');
-    });
-  }
-
-  // Target tabungan
+  // ---------- Reuse utuh: Target Tabungan ----------
   const goalForm = document.getElementById('goal-form');
   if(goalForm){
     goalForm.addEventListener('submit', async (e)=>{
@@ -2769,7 +3052,7 @@ function attachTabEvents(){
     });
   });
 
-  // Aset Tetap: tambah aset baru
+  // ---------- Reuse utuh: Aset Tetap ----------
   const assetForm = document.getElementById('asset-form');
   if(assetForm){
     attachEnterToNextField(assetForm);
@@ -2780,20 +3063,14 @@ function attachTabEvents(){
       const tanggal = document.getElementById('a-tanggal').value;
       const harga = parseRibuan(document.getElementById('a-harga').value);
       const sumber = document.getElementById('a-sumber').value;
-      if(!harga || harga <= 0){
-        alert('Harga beli harus lebih dari 0.');
-        return;
-      }
+      if(!harga || harga <= 0){ alert('Harga beli harus lebih dari 0.'); return; }
       const kode = 'at-' + Date.now();
       state.coa.push({kode, nama, tipe:'Aset', normal:'Debit', tetap:true, kategori});
       await saveCOA();
       if(sumber){
-        // Dibayar dari akun likuid yang sudah tercatat -> catat sebagai transaksi jurnal biasa
-        // (Kas/Tabungan berkurang, nilai aset baru bertambah), supaya tidak dobel hitung dengan saldo awal.
         state.journal.push({id: Date.now(), tanggal, jumlah: harga, keterangan: `Pembelian aset: ${nama}`, debit: kode, kredit: sumber});
         await saveJournal();
       } else {
-        // Tidak ada sumber kas tercatat -> nilai awal aset diisi lewat saldo awal akun ini.
         state.openingBalances[kode] = { tanggal, jumlah: harga };
         await saveOpening();
       }
@@ -2801,24 +3078,16 @@ function attachTabEvents(){
       showSuccessToast('Aset baru berhasil disimpan');
     });
   }
-
-  // Aset Tetap: perbarui nilai (naik/turun) lewat jurnal penyesuaian, sama seperti Rekonsiliasi Saldo.
   document.querySelectorAll('[data-update-asset]').forEach(btn=>{
     btn.addEventListener('click', async ()=>{
       const kode = btn.dataset.updateAsset;
       const input = document.getElementById(`av-nilai-${kode}`);
       const nilaiBaru = input ? parseRibuan(input.value) : 0;
-      if(!nilaiBaru || nilaiBaru <= 0){
-        alert('Isi nilai terbaru terlebih dahulu.');
-        return;
-      }
+      if(!nilaiBaru || nilaiBaru <= 0){ alert('Isi nilai terbaru terlebih dahulu.'); return; }
       const nilaiSekarang = accountBalance(kode);
       const selisih = nilaiBaru - nilaiSekarang;
       const acc = accountByCode(kode);
-      if(selisih === 0){
-        alert('Nilai baru sama dengan nilai saat ini — tidak ada perubahan.');
-        return;
-      }
+      if(selisih === 0){ alert('Nilai baru sama dengan nilai saat ini — tidak ada perubahan.'); return; }
       if(!confirm(`Perbarui nilai "${acc ? acc.nama : kode}" dari ${rupiah(nilaiSekarang)} menjadi ${rupiah(nilaiBaru)}?`)) return;
       const tanggal = new Date().toISOString().slice(0,10);
       const entry = selisih > 0
@@ -2830,10 +3099,6 @@ function attachTabEvents(){
       showSuccessToast('Nilai aset berhasil diperbarui');
     });
   });
-
-  // Aset Tetap: hapus aset beserta seluruh riwayat jurnal yang khusus terkait aset ini
-  // (pembelian & pembaruan nilai) — beda dari hapus akun COA biasa yang diblokir kalau masih dipakai,
-  // karena riwayat akun aset ini memang khusus milik aset tsb, tidak dipakai akun lain.
   document.querySelectorAll('[data-del-asset]').forEach(btn=>{
     btn.addEventListener('click', async ()=>{
       const kode = btn.dataset.delAsset;
@@ -2846,19 +3111,6 @@ function attachTabEvents(){
       render();
       showSuccessToast('Aset berhasil dihapus');
     });
-  });
-
-  const prevBtn = document.getElementById('prev-month');
-  const nextBtn = document.getElementById('next-month');
-  if(prevBtn) prevBtn.addEventListener('click', ()=>{
-    state.viewMonth--;
-    if(state.viewMonth < 0){ state.viewMonth = 11; state.viewYear--; }
-    render();
-  });
-  if(nextBtn) nextBtn.addEventListener('click', ()=>{
-    state.viewMonth++;
-    if(state.viewMonth > 11){ state.viewMonth = 0; state.viewYear++; }
-    render();
   });
 }
 
