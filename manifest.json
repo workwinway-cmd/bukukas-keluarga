@@ -1,0 +1,17 @@
+{
+  "name": "Buku Kas Keluarga",
+  "short_name": "Buku Kas",
+  "description": "Pencatatan kas keluarga offline-first dengan sinkron ke Cloudflare & backup ke GitHub milik sendiri.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FAFAF9",
+  "theme_color": "#2C5F6F",
+  "lang": "id",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
