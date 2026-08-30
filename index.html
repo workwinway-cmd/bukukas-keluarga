@@ -106,7 +106,7 @@
   .saldo-hero .amt{font-size:28px; font-weight:var(--fw-700); margin-top:6px; letter-spacing:-0.01em;}
   .saldo-hero .sub{font-size:var(--fs-sm); color:rgba(255,255,255,0.7); margin-top:2px;}
 
-  .mini-stats{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:16px;}
+  .mini-stats{display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-bottom:16px;}
   .mini-stat{background:var(--card); border:1px solid var(--paper-line); border-radius:var(--radius); padding:12px 10px; text-align:center; box-shadow:var(--shadow);}
   .mini-stat .ico{width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 6px;}
   .mini-stat.masuk .ico{background:rgba(61,122,92,0.14); color:var(--sage);}
@@ -996,6 +996,7 @@ function compressImageToDataURL(file, maxWidth, quality){
 }
 
 const CHANGELOG = [
+  {version:'v2.4-lokal', tanggal:'30 Agu 2026', catatan:'Hapus Metode Pembayaran & Foto Struk dari form Catat Transaksi (form lebih ringkas). Kartu "Selisih" di Beranda dihapus beserta perbaikan tata letak grid Ringkasan Bulan Ini jadi 2 kolom. Tambah kartu "Ringkasan per Kategori" di tab Aset untuk melihat total nilai & jumlah aset per kategori (mis. total emas).'},
   {version:'v2.3-lokal', tanggal:'19 Jul 2026', catatan:'Ganti tampilan total ke tema "Swiss Ledger": palet warna dingin-minimalis (putih gading, teal, abu-abu sejuk), tipografi sans Inter menggantikan Fraunces serif, dan bayangan lebih tipis untuk kesan laporan bank privat yang bersih.'},
   {version:'v2.2-lokal', tanggal:'19 Jul 2026', catatan:'Tekan Enter di form transaksi/aset kini otomatis pindah ke kolom berikutnya. Tab baru "Aset" untuk mencatat aset tetap (motor, emas, dsb) terpisah dari Kas/Tabungan, lengkap dengan Perbarui Nilai dan Total Kekayaan di Dasbor.'},
   {version:'v2.1-lokal', tanggal:'19 Jul 2026', catatan:'Tiap kolom form transaksi kini punya tombol info (i) berisi penjelasan singkat. Kartu Transaksi Berulang diberi warna aksen emas berbeda dari Catat Transaksi Baru, dan dipindah ke bawahnya agar urutan pakai lebih runut.'},
@@ -1569,7 +1570,7 @@ function klasifikasiEntri(e){
 
 function renderBerandaPage(){
   const bal = kasBalance();
-  const { masuk, keluar, selisih } = totalBulanIni();
+  const { masuk, keluar } = totalBulanIni();
   const { label: bulanLabel } = bulanIniRange();
 
   const recent = state.journal.slice().sort((a,b)=> b.tanggal.localeCompare(a.tanggal) || b.id - a.id).slice(0, 5);
@@ -1604,15 +1605,12 @@ function renderBerandaPage(){
     <div class="mini-stats">
       <div class="mini-stat masuk"><div class="ico">${ICON.arrowDown(15)}</div><div class="k">Pemasukan</div><div class="v">${rupiah(masuk)}</div></div>
       <div class="mini-stat keluar"><div class="ico">${ICON.arrowUp(15)}</div><div class="k">Pengeluaran</div><div class="v">${rupiah(keluar)}</div></div>
-      <div class="mini-stat selisih"><div class="ico">${ICON.scale(15)}</div><div class="k">Selisih</div><div class="v">${rupiah(selisih)}</div></div>
     </div>
 
     <div class="section-head"><h3>Transaksi Terkini</h3><a id="beranda-lihat-semua">Lihat semua</a></div>
     <div class="tx-list">${recentRows}</div>
   `;
 }
-const METODE_BAYAR = ['Tunai', 'Transfer Bank', 'E-Wallet', 'Kartu Debit', 'Kartu Kredit'];
-
 function renderTransaksiPage(){
   const isMasuk = transaksiJenis === 'pemasukan';
   const kategoriAccounts = isMasuk
@@ -1621,8 +1619,6 @@ function renderTransaksiPage(){
   const akunAccounts = liquidAsetAccounts();
   const kategoriOptions = kategoriAccounts.map(a=>`<option value="${a.kode}">${a.nama}</option>`).join('') || '<option value="">— Belum ada kategori, tambah lewat Bagan Akun —</option>';
   const akunOptions = akunAccounts.map(a=>`<option value="${a.kode}">${a.nama}</option>`).join('') || '<option value="">— Belum ada akun kas —</option>';
-  const metodeOptions = METODE_BAYAR.map(m=>`<option value="${m}">${m}</option>`).join('');
-
   return `
     <div class="seg-toggle">
       <button type="button" class="masuk ${isMasuk?'active':''}" data-jenis="pemasukan">Pemasukan</button>
@@ -1641,14 +1637,8 @@ function renderTransaksiPage(){
       <label for="tx-deskripsi">Deskripsi (opsional)</label>
       <input type="text" id="tx-deskripsi" placeholder="cth. Gaji bulanan Agustus 2024">
 
-      <label for="tx-metode">Metode Pembayaran</label>
-      <select id="tx-metode">${metodeOptions}</select>
-
       <label for="tx-akun">Akun</label>
       <select id="tx-akun">${akunOptions}</select>
-
-      <label for="tx-foto">Foto Struk (opsional)</label>
-      <input type="file" id="tx-foto" accept="image/*">
 
       <button type="submit" class="btn btn-primary" style="width:100%;">Simpan Transaksi</button>
       <button type="button" class="btn btn-ghost" id="tx-save-again" style="width:100%; margin-top:10px;">Simpan &amp; Catat Lagi</button>
@@ -1929,6 +1919,28 @@ function renderAsetTab(){
   const asetTetap = fixedAsetAccounts();
   const totalNilai = asetTetap.reduce((sum,a)=> sum + accountBalance(a.kode), 0);
 
+  // Kelompokkan nilai & jumlah aset per kategori (mis. berapa banyak & berapa
+  // total nilai emas, kendaraan, dst) untuk kartu "Ringkasan per Kategori".
+  const perKategori = {};
+  asetTetap.forEach(a=>{
+    const kat = a.kategori || 'Lainnya';
+    if(!perKategori[kat]) perKategori[kat] = { jumlah: 0, nilai: 0 };
+    perKategori[kat].jumlah += 1;
+    perKategori[kat].nilai += accountBalance(a.kode);
+  });
+  const kategoriRows = Object.keys(perKategori).sort((x,y)=> perKategori[y].nilai - perKategori[x].nilai).map(kat=>{
+    const d = perKategori[kat];
+    const icon = KATEGORI_ASET[kat] || '\ud83d\udce6';
+    const pct = totalNilai > 0 ? Math.round(d.nilai / totalNilai * 100) : 0;
+    return `
+      <div class="breakdown-row">
+        <div class="nm">${icon} ${kat} <span style="color:var(--ink-soft);">(${d.jumlah} aset)</span></div>
+        <div class="bar"><div style="width:${pct}%; background:var(--gold);"></div></div>
+        <div class="val">${rupiah(d.nilai)}</div>
+      </div>
+    `;
+  }).join('') || '<p class="empty">Belum ada aset tetap tercatat.</p>';
+
   const daftarAset = asetTetap.map(a=>{
     const nilai = accountBalance(a.kode);
     const beli = state.openingBalances[a.kode];
@@ -1957,6 +1969,12 @@ function renderAsetTab(){
       <div class="summary-grid" style="grid-template-columns:1fr;">
         <div class="stat"><div class="k">Total Aset Tetap</div><div class="v">${rupiah(totalNilai)}</div></div>
       </div>
+    </div>
+
+    <div class="card">
+      <h2>Ringkasan per Kategori</h2>
+      <p class="sub">Total nilai & jumlah aset dikelompokkan per kategori, mis. berapa banyak dan berapa nilai emas yang kamu punya.</p>
+      ${kategoriRows}
     </div>
 
     <div class="card">
@@ -2696,7 +2714,6 @@ function attachTabEvents(){
       const kategori = document.getElementById('tx-kategori').value;
       const nominal = parseRibuan(document.getElementById('tx-nominal').value);
       const deskripsi = document.getElementById('tx-deskripsi').value.trim();
-      const metode = document.getElementById('tx-metode').value;
       const akun = document.getElementById('tx-akun').value;
       const msg = document.getElementById('tx-msg');
       if(!kategori || !akun){
@@ -2712,27 +2729,12 @@ function attachTabEvents(){
       const isMasuk = transaksiJenis === 'pemasukan';
       const debit = isMasuk ? akun : kategori;
       const kredit = isMasuk ? kategori : akun;
-      let foto = null;
-      const fotoInput = document.getElementById('tx-foto');
-      if(fotoInput && fotoInput.files && fotoInput.files[0]){
-        try{
-          foto = await compressImageToDataURL(fotoInput.files[0]);
-          if(foto.length > 100000){
-            alert('Ukuran foto terlalu besar setelah dikompres. Transaksi tetap disimpan tanpa foto (kuota penyimpanan lokal HP terbatas).');
-            foto = null;
-          }
-        }catch(err){
-          console.error('Gagal memproses foto struk', err);
-          foto = null;
-        }
-      }
-      state.journal.push({id: Date.now(), tanggal, jumlah: nominal, keterangan: deskripsi, debit, kredit, metode, foto});
+      state.journal.push({id: Date.now(), tanggal, jumlah: nominal, keterangan: deskripsi, debit, kredit});
       await saveJournal();
       showSuccessToast('Transaksi berhasil disimpan');
       if(keepOpen){
         document.getElementById('tx-nominal').value = '';
         document.getElementById('tx-deskripsi').value = '';
-        if(fotoInput) fotoInput.value = '';
         if(msg){ msg.textContent = ''; }
         render();
       } else {

@@ -2,7 +2,7 @@
 // Meng-cache "app shell" (HTML/manifest/ikon + library CDN yang dipakai) supaya
 // aplikasi tetap bisa dibuka walau HP sedang offline. Data transaksi TIDAK
 // disimpan di sini — itu tetap lewat localStorage / sinkron cloud di dalam app.
-const CACHE_NAME = 'bukukas-shell-v1';
+const CACHE_NAME = 'bukukas-shell-v2';
 const APP_SHELL = [
   './',
   './index.html',
